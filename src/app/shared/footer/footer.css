@@ -1,0 +1,126 @@
+/* Import font thống nhất với Header */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@400;600&display=swap');
+
+.footer-container {
+  font-family: 'Lexend Exa', sans-serif;
+  background-color: #fdf8f9; /* Màu hồng xám cực nhạt, sang trọng */
+  border-top: 1px solid #FFCEE1;
+  color: #333;
+  padding-top: 50px;
+  margin-top: 50px; /* Cách xa phần nội dung phía trên */
+}
+
+/* Khu vực 4 cột chính */
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 5%;
+  margin-bottom: 40px;
+}
+
+.footer-col h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #E8627B; /* Màu hồng đậm chủ đạo của Dermaskin */
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: #E8627B;
+  margin-bottom: 15px;
+}
+
+.brand-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.contact-info p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #333;
+}
+
+/* Các đường link */
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #E8627B;
+  padding-left: 5px; /* Hiệu ứng đẩy nhẹ text sang phải khi hover */
+}
+
+/* Form đăng ký nhận tin */
+.newsletter-col p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.newsletter-box {
+  display: flex;
+  height: 40px;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0 15px;
+  border: 1px solid #FFCEE1;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.newsletter-btn {
+  background-color: #E8627B;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+  transition: background-color 0.3s;
+}
+
+.newsletter-btn:hover {
+  background-color: #d14a63;
+}
+
+/* Phần bản quyền dưới cùng */
+.footer-bottom {
+  background-color: #FFEEF5;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 13px;
+  color: #666;
+  border-top: 1px solid #FFCEE1;
+}
+
+/* Responsive cho màn hình điện thoại */
+@media (max-width: 768px) {
+  .footer-main {
+    gap: 40px;
+  }
+}
