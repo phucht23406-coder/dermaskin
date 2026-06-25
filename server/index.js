@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 // --- 1. KẾT NỐI MONGODB LOCAL ---
-mongoose.connect('mongodb://127.0.0.1:27017/dermaskin_db', {
+mongoose.connect('mongodb://localhost:27017/my_project', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log('Đã kết nối tới MongoDB Local thành công!'))
