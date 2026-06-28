@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@400;600;700&display=swap');
+
+.page-background {
+  background-color: #FFF7F7;
+  min-height: 100vh;
+  padding: 40px 0;
+  font-family: 'Lexend Exa', sans-serif;
+}
+
+.policies-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #999;
+}
+
+.breadcrumb .current {
+  color: #E8627B;
+}
+
+/* Layout 2 Cột */
+.layout-wrapper {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+/* Sidebar Menu */
+.sidebar {
+  width: 257px;
+  flex-shrink: 0;
+  border: 1px solid #000;
+  background-color: transparent;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  padding: 15px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-menu li:last-child {
+  border-bottom: none;
+}
+
+.sidebar-menu li.active {
+  background-color: #E8627B;
+  color: #FFF;
+}
+
+.sidebar-menu li:hover:not(.active) {
+  background-color: rgba(232, 98, 123, 0.1);
+}
+
+/* Nội dung bài viết */
+.content {
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #E8627B;
+  margin-bottom: 20px;
+}
+
+.intro {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #E8627B;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.section-content p, 
+.section-content li {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.section-content ul {
+  padding-left: 25px;
+  margin-bottom: 20px;
+  list-style-type: disc;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 992px) {
+  .layout-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .intro, .section-content p, .section-content li, .section-title {
+    font-size: 16px;
+  }
+}
