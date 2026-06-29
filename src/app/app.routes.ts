@@ -12,7 +12,7 @@ import { Blog } from './pages/blog/blog';
 import { PoliciesComponent } from './pages/policies/policies';
 import { AiConsult } from './pages/ai-consult/ai-consult';
 import { Stores } from './pages/stores/stores';
-import { Warranty } from './pages/warranty/warranty';
+import { WarrantyComponent } from './pages/warranty/warranty';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -27,6 +27,6 @@ export const routes: Routes = [
   { path: 'policies', component: PoliciesComponent, },
   { path: 'ai-consult', component: AiConsult },
   { path: 'stores', component: Stores },
-  { path: 'warranty', component: Warranty },
+  { path: 'warranty', component: WarrantyComponent },
   { path: '**', redirectTo: '' } 
 ];

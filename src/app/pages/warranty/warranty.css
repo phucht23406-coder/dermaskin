@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@400;600;700&family=Lexend+Deca:wght@300;400;600&display=swap');
+
+.warranty-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Lexend Exa', sans-serif;
+}
+
+.breadcrumb {
+  font-size: 15px;
+  font-weight: 600;
+  color: #999;
+  margin-bottom: 40px;
+}
+
+.breadcrumb .current { color: #E8627B; }
+
+/* TABLE MENU TABS */
+.tabs-menu {
+  display: flex;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 16px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  border: 1px solid #000;
+  margin-left: -1px; /* Nối viền các cột lại với nhau thành dạng bảng */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 200px;
+}
+
+.tab-item:first-child { margin-left: 0; }
+
+.tab-item.active {
+  background-color: #E8627B;
+  color: #FFF;
+}
+
+.tab-item:hover:not(.active) {
+  background-color: #FFCEE1;
+}
+
+/* NỘI DUNG FORM */
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+.form-group { margin-bottom: 25px; }
+
+.form-group label {
+  display: block;
+  font-family: 'Lexend Exa', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.form-group label span { color: #E8627B; }
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #E6E6E6;
+  border-radius: 6px;
+  font-size: 18px;
+  font-family: 'Lexend Deca', sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+  color: #999;
+}
+
+.note-text {
+  font-size: 16px;
+  color: #000;
+  margin-top: 10px;
+}
+
+.agreement {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.agreement a {
+  color: #08F;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.submit-btn {
+  display: block;
+  width: 220px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #E8627B;
+  color: #FFF;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Lexend Exa', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* MÀN HÌNH THÀNH CÔNG */
+.success-screen {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.success-title {
+  font-size: 32px;
+  color: #E8627B;
+  margin-bottom: 40px;
+}
+
+.back-btn {
+  font-size: 20px;
+  color: #E8627B;
+  background: transparent;
+  border: 2px solid #FFCEE1;
+  padding: 15px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Lexend Exa', sans-serif;
+  font-weight: 600;
+}
+
+/* NỘI DUNG CHÍNH SÁCH */
+.policy-article { background: #FFF; padding: 20px; }
+.title { font-size: 32px; color: #E8627B; margin-bottom: 20px; }
+.intro { font-size: 18px; line-height: 1.8; margin-bottom: 30px; }
+.section-title { font-size: 22px; color: #E8627B; margin-top: 35px; margin-bottom: 15px; }
+.section-content p, .section-content li { font-size: 18px; line-height: 1.8; margin-bottom: 12px; }
+.section-content ul { padding-left: 25px; list-style-type: disc; }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .tab-item { 
+    min-width: 50%; 
+    margin-left: 0; 
+    border-bottom: none; 
+  }
+  .tab-item:nth-child(even) { border-left: none; }
+  .tab-item:nth-child(3), .tab-item:nth-child(4) { border-bottom: 1px solid #000; }
+}

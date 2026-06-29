@@ -1,0 +1,478 @@
+/* ==========================================================================
+   Dermaskin Homepage Styles
+   Converted from Figma design to fluid, responsive CSS
+   ========================================================================== */
+
+:root {
+  --color-bg: #FFF7F7;
+  --color-pink-overlay: rgba(255, 206, 225, 0.8);
+  --color-brand-pink: #E8627B;
+  --color-yellow: #FFCC00;
+  --color-text-dark: #000;
+  --color-text-muted: #727272;
+  --color-text-secondary: #7E7E7E;
+  --color-strikethrough: #333;
+  --color-arrow: #B3B3B3;
+  --color-white: #FFF;
+
+  --font-display: 'Lexend Exa', -apple-system, Roboto, Helvetica, sans-serif;
+  --font-body: 'Lexend Deca', -apple-system, Roboto, Helvetica, sans-serif;
+  --font-heading: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
+
+  --max-content-width: 1408px;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+.container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 4vw, 40px);
+  color: var(--color-text-dark);
+  margin: 0 0 24px 0;
+}
+
+/* ==========================================================================
+   Hero Banner
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1445 / 576;
+  overflow: hidden;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__dots {
+  position: absolute;
+  bottom: clamp(16px, 4%, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+.hero__dot {
+  width: clamp(32px, 3.3vw, 48px);
+  height: clamp(32px, 3.3vw, 48px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__dot svg {
+  width: 60%;
+  height: 60%;
+}
+
+/* ==========================================================================
+   Flash Sale Section
+   ========================================================================== */
+
+.flash-sale {
+  position: relative;
+  max-width: var(--max-content-width);
+  margin: 48px auto 0;
+  padding: 32px var(--gutter) 48px;
+  border-radius: 20px;
+  background: var(--color-pink-overlay);
+}
+
+.flash-sale__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.flash-sale__title-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 4vw, 40px);
+  flex-wrap: wrap;
+}
+
+.flash-sale__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 3.3vw, 40px);
+  margin: 0;
+}
+
+.flash-sale__timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flash-sale__timer-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: clamp(40px, 4vw, 56px);
+  height: clamp(36px, 3.5vw, 48px);
+  border-radius: 4px;
+  background: var(--color-white);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 32px);
+  color: #F00;
+}
+
+.flash-sale__timer-colon {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-white);
+}
+
+.flash-sale__see-all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(16px, 1.8vw, 24px);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.flash-sale__see-all svg {
+  width: 12px;
+  height: 24px;
+}
+
+.flash-sale__carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flash-sale__arrow {
+  flex-shrink: 0;
+  width: clamp(32px, 3vw, 50px);
+  height: clamp(28px, 2.5vw, 42px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.flash-sale__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+.flash-sale__arrow--prev svg {
+  transform: rotate(0deg);
+}
+
+.flash-sale__arrow--next svg {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 1024px) {
+  .flash-sale__arrow {
+    display: flex;
+  }
+}
+
+.flash-sale__carousel {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.flash-sale__carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.flash-sale__carousel::-webkit-scrollbar-thumb {
+  background: var(--color-brand-pink);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Product Card
+   ========================================================================== */
+
+.product-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 300px;
+  max-width: 80vw;
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.product-card__discount-badge {
+  position: absolute;
+  top: 6px;
+  left: 5%;
+  background: var(--color-brand-pink);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+.product-card__heart {
+  position: absolute;
+  top: 6px;
+  right: 5%;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card__heart img {
+  width: 16px;
+  height: 16px;
+}
+
+.product-card__cta {
+  position: absolute;
+  bottom: 8px;
+  left: 4%;
+  width: 70px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--color-brand-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.product-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.product-card__rating svg {
+  width: 14px;
+  height: 14px;
+}
+
+.product-card__sold {
+  position: absolute;
+  bottom: 14px;
+  left: calc(4% + 90px);
+  color: var(--color-text-dark);
+  font-size: 15px;
+}
+
+.product-card__body {
+  padding: 12px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.product-card__prices {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-card__price {
+  font-size: 15px;
+  color: var(--color-text-dark);
+}
+
+.product-card__price--old {
+  color: var(--color-strikethrough);
+  font-weight: 300;
+  text-decoration: line-through;
+}
+
+.product-card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-brand-pink);
+  margin: 0;
+}
+
+.product-card__desc {
+  font-size: 15px;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Generic Product Grid Sections (Brands / Best Sellers / Clinic&Spa / Suggestions)
+   ========================================================================== */
+
+.product-section {
+  max-width: var(--max-content-width);
+  margin: 64px auto 0;
+  padding: 0 var(--gutter);
+}
+
+.product-section__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+
+@media (max-width: 1100px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-grid .product-card {
+  width: 100%;
+  max-width: none;
+}
+
+.section-scroll-arrows {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+/* Brand logos placeholder row (kept minimal — original had blank placeholders) */
+.brand-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  min-height: 95px;
+  margin-top: 24px;
+}
+
+/* ==========================================================================
+   View More Button
+   ========================================================================== */
+
+.view-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 64px auto 0;
+  padding: 0 var(--gutter);
+}
+
+.view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 48px;
+  border-radius: 20px;
+  border: 1px solid var(--color-brand-pink);
+  background: var(--color-white);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--color-brand-pink);
+}
+
+/* ==========================================================================
+   Utility: placeholder grey box (for any retained Figma placeholders)
+   ========================================================================== */
+
+.placeholder-box {
+  background: #D9D9D9;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+}
