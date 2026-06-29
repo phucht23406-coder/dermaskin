@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+// Nhập Header và Footer vào với đường dẫn chính xác
+import { Header } from './shared/header/header'; 
+import { Footer } from './shared/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  // Khai báo HeaderComponent và FooterComponent vào mảng imports này
+  imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('dermaskin');
+  title = 'dermaskin';
 }
