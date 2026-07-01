@@ -1,0 +1,297 @@
+/* stores.css */
+:root {
+  --primary-pink: #e8627b;
+  --bg-pink: #fff7f7;
+  --secondary-pink: #ffcee1;
+  --text-black: #000000;
+  --text-gray: #999999;
+  --text-gray-light: #7e7e7e;
+  --white: #ffffff;
+  --border-color: #e6e6e6;
+  --transition: all 0.3s ease;
+}
+
+.store-locator-wrapper {
+  background-color: var(--bg-pink);
+  min-height: 100vh;
+  padding-bottom: 80px;
+  font-family: 'Lexend Exa', -apple-system, Roboto, sans-serif;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* 1. Breadcrumbs */
+.breadcrumb-nav {
+  padding: 24px 0;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.breadcrumb-item a {
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary-pink);
+}
+
+.breadcrumb-item.active {
+  color: var(--primary-pink);
+}
+
+.breadcrumb-separator {
+  display: flex;
+  align-items: center;
+}
+
+/* 2. Banner */
+.store-banner {
+  margin-bottom: 40px;
+}
+
+.banner-container {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 450px; /* Tối ưu hơn so với 650px tĩnh để cân đối trên web */
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 3. Filter Controls */
+.filter-controls {
+  margin-bottom: 40px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.select-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-pink);
+  padding: 14px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.select-wrapper:hover {
+  opacity: 0.9;
+}
+
+.select-label {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 4. Main Store Layout */
+.store-main-layout {
+  margin-top: 40px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 700px 1fr;
+  gap: 20px;
+  min-height: 664px;
+}
+
+/* Sidebar */
+.store-sidebar {
+  background-color: var(--secondary-pink);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  background-color: var(--primary-pink);
+  padding: 20px 30px;
+  color: var(--white);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sidebar-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.store-scroll-container {
+  padding: 30px;
+  overflow-y: auto;
+  max-height: 550px;
+}
+
+.store-card {
+  background-color: var(--bg-pink);
+  border-radius: 6px;
+  margin-bottom: 15px;
+  padding: 14px 20px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.store-card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.store-card.active {
+  border-left: 6px solid var(--primary-pink);
+}
+
+.card-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.branch-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--text-black);
+}
+
+.branch-address {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text-black);
+}
+
+.branch-meta {
+  margin-top: 15px;
+  font-size: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--text-gray);
+}
+
+.meta-item {
+  margin: 5px 0;
+}
+
+.card-arrow {
+  transition: var(--transition);
+}
+
+.store-card.active .card-arrow {
+  transform: rotate(180deg);
+}
+
+/* Map Panel */
+.map-view-panel {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  background-color: var(--white);
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 400px;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.placeholder-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay-text {
+  position: absolute;
+  background: rgba(232, 98, 123, 0.9);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+/* =========================================
+   RESPONSIVE (Mobile & Tablet)
+   ========================================= */
+@media (max-width: 1200px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .store-sidebar {
+    height: 500px;
+  }
+}
+
+@media (max-width: 992px) {
+  .filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .banner-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-title {
+    font-size: 18px;
+  }
+
+  .select-label {
+    font-size: 14px;
+  }
+}

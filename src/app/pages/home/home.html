@@ -1,1 +1,250 @@
-<p>home works!</p>
+<!-- ===== HERO BANNER ===== -->
+<section class="hero-banner">
+  <img
+    src="https://api.builder.io/api/v1/image/assets/TEMP/d9dff7ef14c23135d431362c6f640af99680f9dd?width=2890"
+    alt="Dermaskin Hero Banner"
+    class="hero-banner__image"
+  />
+  <div class="hero-banner__dots">
+    <button
+      *ngFor="let i of getSlideRange()"
+      class="hero-banner__dot"
+      [class.hero-banner__dot--active]="currentSlide === i"
+      (click)="setSlide(i)"
+      [attr.aria-label]="'Slide ' + (i + 1)"
+    ></button>
+  </div>
+</section>
+
+<!-- ===== FLASH SALE SECTION ===== -->
+<section class="section flash-sale">
+  <div class="section__container">
+    <div class="section__header">
+      <div class="flash-sale__title-group">
+        <!-- Lightning bolt icon -->
+        <img
+          src="https://api.builder.io/api/v1/image/assets/TEMP/5fdbdb0524f1684f6b1371d67c65c710790f6c21?width=160"
+          alt="Flash Sale Icon"
+          class="flash-sale__icon"
+        />
+        <h2 class="section__title">Flash Sale!</h2>
+        <div class="flash-sale__countdown" aria-label="Thời gian còn lại">
+          <div class="countdown__block">
+            <span class="countdown__value">{{ paddedHours }}</span>
+          </div>
+          <span class="countdown__separator">:</span>
+          <div class="countdown__block">
+            <span class="countdown__value">{{ paddedMinutes }}</span>
+          </div>
+          <span class="countdown__separator">:</span>
+          <div class="countdown__block">
+            <span class="countdown__value">{{ paddedSeconds }}</span>
+          </div>
+        </div>
+      </div>
+      <a [routerLink]="['/flash-sale']" class="section__view-all">
+        Xem tất cả
+        <svg width="12" height="20" viewBox="0 0 20 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4283 20.0001L2.64332 8.21506L4.99998 5.85839L17.9633 18.8217C18.2758 19.1343 18.4513 19.5581 18.4513 20.0001C18.4513 20.442 18.2758 20.8658 17.9633 21.1784L4.99998 34.1417L2.64332 31.7851L14.4283 20.0001Z" fill="#808080"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of flashSaleProducts">
+        <div class="product-card__inner">
+          <div class="product-card__image-wrapper">
+            <img [src]="product.imageUrl" [alt]="product.name" class="product-card__image" />
+            <button class="product-card__wishlist" aria-label="Thêm vào yêu thích">
+              <svg width="16" height="16" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="15.4341" cy="15.4341" r="15.4341" fill="white"/>
+              </svg>
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/111f0b7def381004a52dd198195dc007863632f8?width=32" alt="Heart" class="product-card__heart" />
+            </button>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__pricing">
+              <div class="product-card__prices">
+                <span class="product-card__price">{{ product.price }}</span>
+                <span class="product-card__original-price">{{ product.originalPrice }}</span>
+              </div>
+              <span class="product-card__discount-badge">{{ product.discount }}</span>
+            </div>
+            <h3 class="product-card__name">{{ product.name }}</h3>
+            <p class="product-card__description">{{ product.description }}</p>
+            <div class="product-card__meta">
+              <div class="product-card__buy-now">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+                </svg>
+                <span class="product-card__rating">{{ product.rating }}</span>
+              </div>
+              <span class="product-card__sold">Đã bán {{ product.sold | number }} sản phẩm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THƯƠNG HIỆU (BRANDS) SECTION ===== -->
+<section class="section brands">
+  <div class="section__container">
+    <div class="section__header">
+      <h2 class="section__title">Thương hiệu</h2>
+    </div>
+    <div class="brands__grid">
+      <div class="brand-card" *ngFor="let brand of brands">
+        <img [src]="brand.imageUrl" [alt]="brand.name" class="brand-card__image" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BÁN CHẠY (BEST SELLERS) SECTION ===== -->
+<section class="section best-sellers">
+  <div class="section__container">
+    <div class="section__header">
+      <h2 class="section__title">Bán chạy</h2>
+      <a [routerLink]="['/ban-chay']" class="section__view-all">
+        Xem tất cả
+        <svg width="12" height="20" viewBox="0 0 20 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4283 20.0001L2.64332 8.21506L4.99998 5.85839L17.9633 18.8217C18.2758 19.1343 18.4513 19.5581 18.4513 20.0001C18.4513 20.442 18.2758 20.8658 17.9633 21.1784L4.99998 34.1417L2.64332 31.7851L14.4283 20.0001Z" fill="#808080"/>
+        </svg>
+      </a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of bestSellers">
+        <div class="product-card__inner">
+          <div class="product-card__image-wrapper">
+            <img [src]="product.imageUrl" [alt]="product.name" class="product-card__image" />
+            <button class="product-card__wishlist" aria-label="Thêm vào yêu thích">
+              <svg width="16" height="16" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="15.4341" cy="15.4341" r="15.4341" fill="white"/>
+              </svg>
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/111f0b7def381004a52dd198195dc007863632f8?width=32" alt="Heart" class="product-card__heart" />
+            </button>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__pricing">
+              <div class="product-card__prices">
+                <span class="product-card__price">{{ product.price }}</span>
+                <span class="product-card__original-price">{{ product.originalPrice }}</span>
+              </div>
+              <span class="product-card__discount-badge">{{ product.discount }}</span>
+            </div>
+            <h3 class="product-card__name">{{ product.name }}</h3>
+            <p class="product-card__description">{{ product.description }}</p>
+            <div class="product-card__meta">
+              <div class="product-card__buy-now">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+                </svg>
+                <span class="product-card__rating">{{ product.rating }}</span>
+              </div>
+              <span class="product-card__sold">Đã bán {{ product.sold | number }} sản phẩm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLINIC & SPA SECTION ===== -->
+<section class="section clinic-spa">
+  <div class="section__container">
+    <div class="section__header">
+      <h2 class="section__title">Clinic &amp; Spa</h2>
+      <a [routerLink]="['/clinic-spa']" class="section__view-all">
+        Xem tất cả
+        <svg width="12" height="20" viewBox="0 0 20 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4283 20.0001L2.64332 8.21506L4.99998 5.85839L17.9633 18.8217C18.2758 19.1343 18.4513 19.5581 18.4513 20.0001C18.4513 20.442 18.2758 20.8658 17.9633 21.1784L4.99998 34.1417L2.64332 31.7851L14.4283 20.0001Z" fill="#808080"/>
+        </svg>
+      </a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let service of clinicServices">
+        <div class="product-card__inner">
+          <div class="product-card__image-wrapper">
+            <img [src]="service.imageUrl" [alt]="service.name" class="product-card__image" />
+            <button class="product-card__wishlist" aria-label="Thêm vào yêu thích">
+              <svg width="16" height="16" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="15.4341" cy="15.4341" r="15.4341" fill="white"/>
+              </svg>
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/111f0b7def381004a52dd198195dc007863632f8?width=32" alt="Heart" class="product-card__heart" />
+            </button>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__pricing">
+              <div class="product-card__prices">
+                <span class="product-card__price">{{ service.price }}</span>
+                <span class="product-card__original-price">{{ service.originalPrice }}</span>
+              </div>
+              <span class="product-card__discount-badge">{{ service.discount }}</span>
+            </div>
+            <h3 class="product-card__name">{{ service.name }}</h3>
+            <p class="product-card__description">{{ service.description }}</p>
+            <div class="product-card__meta">
+              <div class="product-card__buy-now">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+                </svg>
+                <span class="product-card__rating">{{ service.rating }}</span>
+              </div>
+              <span class="product-card__sold">Đã bán {{ service.sold | number }} sản phẩm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GỢI Ý CHO BẠN (SUGGESTED) SECTION ===== -->
+<section class="section suggested">
+  <div class="section__container">
+    <div class="section__header">
+      <h2 class="section__title">Gợi ý cho bạn</h2>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of suggestedProducts">
+        <div class="product-card__inner">
+          <div class="product-card__image-wrapper">
+            <img [src]="product.imageUrl" [alt]="product.name" class="product-card__image" />
+            <button class="product-card__wishlist" aria-label="Thêm vào yêu thích">
+              <svg width="16" height="16" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="15.4341" cy="15.4341" r="15.4341" fill="white"/>
+              </svg>
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/111f0b7def381004a52dd198195dc007863632f8?width=32" alt="Heart" class="product-card__heart" />
+            </button>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__pricing">
+              <div class="product-card__prices">
+                <span class="product-card__price">{{ product.price }}</span>
+                <span class="product-card__original-price">{{ product.originalPrice }}</span>
+              </div>
+              <span class="product-card__discount-badge">{{ product.discount }}</span>
+            </div>
+            <h3 class="product-card__name">{{ product.name }}</h3>
+            <p class="product-card__description">{{ product.description }}</p>
+            <div class="product-card__meta">
+              <div class="product-card__buy-now">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+                </svg>
+                <span class="product-card__rating">{{ product.rating }}</span>
+              </div>
+              <span class="product-card__sold">Đã bán {{ product.sold | number }} sản phẩm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="suggested__load-more">
+      <button class="btn btn--outline">Xem thêm</button>
+    </div>
+  </div>
+</section>

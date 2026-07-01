@@ -1,1 +1,159 @@
-<p>products works!</p>
+<!-- ================================================================
+     products.html
+     ProductsComponent standalone template
+     NOTE: Global Header & Footer intentionally removed — this file
+     only contains the "Trang danh mục sản phẩm" (Product Catalog Page)
+     content: category sidebar, price filter, and product grid.
+================================================================= -->
+
+<section class="products-page">
+
+  <!-- ============================= -->
+  <!-- SIDEBAR: Category Nav + Price Filter -->
+  <!-- ============================= -->
+  <aside class="products-page__sidebar">
+
+    <!-- Category Navigation -->
+    <nav class="category-nav" aria-label="Product categories">
+      <ul class="category-nav__list">
+        <li
+          class="category-nav__item"
+          *ngFor="let category of categories"
+          [class.category-nav__item--active]="category.active"
+        >
+          <a class="category-nav__link" href="javascript:void(0)">
+            {{ category.name }}
+          </a>
+          <span class="category-nav__badge" *ngIf="category.hasBadge"></span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Price Range Filter -->
+    <div class="price-filter">
+      <h3 class="price-filter__title">KHOẢNG GIÁ</h3>
+
+      <div class="price-filter__field">
+        <label for="priceFrom" class="price-filter__label">
+          <span class="price-filter__currency">đ</span> Từ
+        </label>
+        <input
+          id="priceFrom"
+          type="number"
+          class="price-filter__input"
+          [(ngModel)]="priceFrom"
+          placeholder="0"
+        />
+      </div>
+
+      <div class="price-filter__field">
+        <label for="priceTo" class="price-filter__label">
+          <span class="price-filter__currency">đ</span> Đến
+        </label>
+        <input
+          id="priceTo"
+          type="number"
+          class="price-filter__input"
+          [(ngModel)]="priceTo"
+          placeholder="0"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="price-filter__apply-btn"
+        (click)="applyPriceFilter()"
+      >
+        Áp dụng
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ============================= -->
+  <!-- PRODUCT GRID -->
+  <!-- ============================= -->
+  <div class="products-page__content">
+
+    <div class="products-grid">
+
+      <article
+        class="product-card"
+        *ngFor="let product of products"
+        role="button"
+        tabindex="0"
+        style="cursor: pointer;" 
+      >
+      <a [routerLink]="['/product-detail']" [state]="{ productId: product.id }" class="product-card__link-overlay"></a>
+
+        <!-- Image + overlay elements -->
+        <div class="product-card__image-wrap">
+          <img
+            class="product-card__image"
+            [src]="product.imageUrl"
+            [alt]="product.name"
+          />
+
+          <!-- Discount badge -->
+          <div class="product-card__discount-badge" *ngIf="product.discountPercent">
+            -{{ product.discountPercent }}%
+          </div>
+
+          <!-- Favorite / heart icon -->
+          <button
+            type="button"
+            class="product-card__favorite-btn"
+            (click)="toggleFavorite(product, $event)"
+            [attr.aria-pressed]="product.isFavorite"
+            aria-label="Add to favorites"
+          >
+            <img
+              class="product-card__favorite-icon"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/111f0b7def381004a52dd198195dc007863632f8?width=32"
+              alt="Heart icon"
+            />
+          </button>
+
+          <!-- Buy now button (over image) -->
+          <button
+            type="button"
+            class="product-card__buy-btn"
+            (click)="buyNow(product, $event)"
+            aria-label="Mua ngay"
+          >
+            <svg class="product-card__buy-btn-star" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+            </svg>
+            <span class="product-card__rating">{{ product.rating.toFixed(1) }}</span>
+          </button>
+        </div>
+
+        <!-- Price row -->
+        <div class="product-card__price-row">
+          <span class="product-card__price">{{ product.price | number }}đ</span>
+          <span
+            class="product-card__price-original"
+            *ngIf="product.originalPrice"
+          >
+            {{ product.originalPrice | number }}đ
+          </span>
+        </div>
+
+        <!-- Product name -->
+        <h4 class="product-card__name">{{ product.name }}</h4>
+
+        <!-- Short description -->
+        <p class="product-card__description">{{ product.description }}</p>
+
+        <!-- Sold count -->
+        <p class="product-card__sold-count">
+          Đã bán {{ product.soldCount | number }} sản phẩm
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>

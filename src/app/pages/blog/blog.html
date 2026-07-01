@@ -1,1 +1,398 @@
-<p>blog works!</p>
+<!-- blog.component.html -->
+<div class="blog-page">
+
+  <!-- ============================================================ -->
+  <!-- VIEW 1: BLOG OVERVIEW (LIST) — shown when isDetailView = false -->
+  <!-- ============================================================ -->
+  <div class="blog-overview" *ngIf="!isDetailView">
+
+    <!-- Page Title -->
+    <div class="blog-overview__header">
+      <h1 class="blog-overview__title">Tin tức và Blog</h1>
+      <span class="blog-overview__underline"></span>
+    </div>
+
+    <!-- Article Grid -->
+    <div class="blog-overview__grid">
+      <div
+        class="article-card"
+        *ngFor="let article of articles"
+        [class.article-card--featured]="article.featured"
+        (click)="article.slug === 'dap-mat-na-bao-lau' ? openArticleDetail() : null"
+        [style.cursor]="article.slug === 'dap-mat-na-bao-lau' ? 'pointer' : 'default'"
+      >
+        <div class="article-card__image-wrapper">
+          <img
+            class="article-card__image"
+            [src]="article.thumbnail"
+            [alt]="article.title"
+          />
+          <span class="article-card__category">{{ article.category }}</span>
+        </div>
+        <div class="article-card__body">
+          <h2 class="article-card__title">{{ article.title }}</h2>
+          <p class="article-card__excerpt">{{ article.excerpt }}</p>
+          <div class="article-card__meta">
+            <span class="article-card__date">{{ article.date }}</span>
+            <button
+              class="article-card__read-more"
+              (click)="$event.stopPropagation(); article.slug === 'dap-mat-na-bao-lau' ? openArticleDetail() : null"
+            >
+              Xem thêm →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- END VIEW 1 -->
+
+
+  <!-- ============================================================ -->
+  <!-- VIEW 2: BLOG DETAIL — shown when isDetailView = true         -->
+  <!-- ============================================================ -->
+  <div class="blog-detail" *ngIf="isDetailView">
+
+    <!-- Back Navigation -->
+    <div class="blog-detail__back-nav">
+      <button class="back-btn" (click)="backToBlog()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 12L6 8L10 4" stroke="#E8627B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ← Quay lại Blog
+      </button>
+    </div>
+
+    <!-- Two-column layout: main content + sidebar -->
+    <div class="blog-detail__layout">
+
+      <!-- ---- MAIN CONTENT COLUMN ---- -->
+      <main class="blog-detail__main">
+
+        <!-- Article Title -->
+        <h1 class="blog-detail__main-title">
+          Đắp Mặt Nạ Bao Lâu Là Đủ?<br />
+          Thời Gian Lý Tưởng Cho Từng Loại
+        </h1>
+
+        <!-- Introduction -->
+        <p class="blog-detail__paragraph">
+          Đắp Mặt Nạ Bao Lâu Là Đủ? Thời Gian Lý Tưởng Cho Từng Loại
+          Trong quy trình chăm sóc da, đắp mặt nạ từ lâu đã trở thành "nghi thức" làm đẹp quen thuộc, mang lại hiệu quả
+          cấp tốc tương tự một liệu pháp spa tại nhà. Tuy nhiên, nhiều người vẫn tin rằng đắp mặt nạ càng lâu càng tốt,
+          để da hấp thụ hết dưỡng chất. Thực tế, quan niệm này có thể khiến làn da chịu nhiều tổn thương: khô căng, mất
+          nước, thậm chí kích ứng.
+        </p>
+        <p class="blog-detail__paragraph">
+          Vậy đắp mặt nạ bao lâu là hợp lý? Bài viết này sẽ giúp bạn hiểu rõ cơ chế hoạt động của từng loại mặt nạ, từ
+          đó xác định thời gian và tần suất sử dụng tối ưu nhất.
+        </p>
+
+        <!-- Section 1 -->
+        <h2 class="blog-detail__section-heading">
+          1. Đắp mặt nạ bao lâu là đủ? Vì sao thời gian quan trọng
+        </h2>
+
+        <h3 class="blog-detail__sub-heading">1.1. Cơ chế sinh học của việc đắp mặt nạ</h3>
+        <p class="blog-detail__paragraph">
+          Các loại mặt nạ giấy, mặt nạ kem hoặc gel tạo ra một lớp màng bao phủ, giúp ngăn thoát hơi nước, đồng thời
+          tăng cường áp lực thẩm thấu. Nhờ đó, dưỡng chất như hyaluronic acid, collagen, vitamin C có thể thấm sâu vào
+          da, cung cấp độ ẩm và nuôi dưỡng hiệu quả.
+        </p>
+
+        <h3 class="blog-detail__sub-heading">1.2. Cơ chế hấp thụ &amp; thanh lọc</h3>
+        <p class="blog-detail__paragraph">
+          Ngược lại, mặt nạ đất sét và bùn hoạt động bằng cách hút dầu thừa, bụi bẩn, độc tố trong lỗ chân lông. Nếu
+          để khô hoàn toàn, chúng có thể hút luôn độ ẩm tự nhiên, khiến da khô rát.
+        </p>
+
+        <h3 class="blog-detail__sub-heading">1.3. Tác hại của việc đắp mặt nạ sai thời gian</h3>
+        <ul class="blog-detail__list">
+          <li><strong>Đắp quá ngắn:</strong> Dưỡng chất chưa kịp thẩm thấu, giảm hiệu quả.</li>
+          <li><strong>Đắp quá lâu:</strong> Dẫn đến hiện tượng "hút ẩm ngược", khiến da khô căng, dễ kích ứng.</li>
+          <li>
+            <strong>Đắp qua đêm (với mặt nạ giấy/đất sét):</strong> Không chỉ vô ích mà còn gây hại.
+          </li>
+        </ul>
+        <p class="blog-detail__paragraph">
+          Chính vì vậy, thời gian đắp mặt nạ phải tuân theo khuyến nghị cụ thể cho từng loại sản phẩm.
+        </p>
+
+        <!-- Section 2 -->
+        <h2 class="blog-detail__section-heading">
+          2. Thời gian đắp mặt nạ chuẩn cho từng loại
+        </h2>
+
+        <!-- 2.1 Sheet Mask -->
+        <h3 class="blog-detail__sub-heading">2.1. Mặt nạ giấy (Sheet Mask)</h3>
+        <p class="blog-detail__paragraph">
+          Mặt nạ giấy là một sản phẩm tiện lợi, cung cấp dưỡng chất và độ ẩm tức thì cho da.
+        </p>
+
+        <!-- Article Image 1 -->
+        <div class="blog-detail__image-wrapper">
+          <img
+            class="blog-detail__image"
+            src="https://api.builder.io/api/v1/image/assets/TEMP/fe672e4abdec2b51247456f3079b664dae62ccb1?width=1440"
+            alt="Mặt nạ giấy Sheet Mask"
+          />
+        </div>
+
+        <p class="blog-detail__paragraph">
+          <strong>Thời gian đắp khuyến nghị: 15 – 20 phút</strong> (tối đa 20 phút). Việc đắp trong khoảng thời gian
+          này đảm bảo da có đủ thời gian để hấp thụ tinh chất một cách hiệu quả mà không bị khô và gây hiện tượng hút
+          ẩm ngược.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Tần suất khuyến nghị: 2 – 3 lần/tuần.</strong> Một số trường hợp da cực kỳ khô có thể sử dụng hàng
+          ngày, tuy nhiên, điều này không được khuyến khích với mọi loại da. Việc sử dụng quá thường xuyên, đặc biệt là
+          các loại mặt nạ chứa hóa chất mạnh, có thể làm da bị quá tải dưỡng chất, mất đi lớp màng bảo vệ tự nhiên và
+          tăng nguy cơ kích ứng, nổi mụn.
+        </p>
+        <p class="blog-detail__paragraph">
+          <em>Lưu ý: Không để mặt nạ khô hoàn toàn trên da để tránh hiện tượng "hút ẩm ngược".</em>
+        </p>
+
+        <!-- 2.2 Clay/Mud Mask -->
+        <h3 class="blog-detail__sub-heading">2.2. Mặt nạ đất sét/bùn (Clay/Mud Mask)</h3>
+        <p class="blog-detail__paragraph">
+          Mặt nạ đất sét và bùn có khả năng kiểm soát dầu thừa, làm sạch sâu lỗ chân lông và thải độc cho da.
+        </p>
+
+        <!-- Article Image 2 -->
+        <div class="blog-detail__image-wrapper">
+          <img
+            class="blog-detail__image"
+            src="https://api.builder.io/api/v1/image/assets/TEMP/9ab3f919a771b4d212a6dd1a70c212be86d33e9f?width=1440"
+            alt="Mặt nạ đất sét Clay Mud Mask"
+          />
+        </div>
+
+        <p class="blog-detail__paragraph">
+          <strong>Thời gian đắp khuyến nghị: 10 – 15 phút,</strong> rửa sạch khi mặt nạ vừa se lại nhưng vẫn còn hơi
+          ẩm, không để mặt nạ khô hoàn toàn trên da.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Tần suất khuyến nghị: 1 – 2 lần/tuần</strong> đối với da dầu/hỗn hợp dầu. Đối với làn da khô và nhạy
+          cảm, tần suất nên giảm xuống còn 1 lần/tuần hoặc thậm chí 1 lần/2 tuần để tránh tình trạng khô da và kích
+          ứng.
+        </p>
+        <p class="blog-detail__paragraph">
+          <em>Lưu ý: Không để mặt nạ khô đến nứt nẻ, vì sẽ gây mất nước và tổn thương hàng rào bảo vệ da.</em>
+        </p>
+
+        <!-- 2.3 Sleeping Mask -->
+        <h3 class="blog-detail__sub-heading">2.3. Mặt nạ ngủ (Sleeping Mask)</h3>
+        <p class="blog-detail__paragraph">
+          Mặt nạ ngủ là một bước dưỡng da đặc biệt được thiết kế để cung cấp độ ẩm chuyên sâu và khóa chặt dưỡng chất
+          trong suốt đêm.
+        </p>
+
+        <!-- Article Image 3 -->
+        <div class="blog-detail__image-wrapper">
+          <img
+            class="blog-detail__image"
+            src="https://api.builder.io/api/v1/image/assets/TEMP/4aa7bfcf28360dd4ab79ded1eb0841cbe9cb9ceb?width=1440"
+            alt="Mặt nạ ngủ Sleeping Mask"
+          />
+        </div>
+
+        <p class="blog-detail__paragraph">
+          <strong>Thời gian:</strong> Để trên da qua đêm và rửa sạch lại vào sáng hôm sau.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Tần suất: 2 – 3 lần/tuần,</strong> tùy thuộc vào nhu cầu và tình trạng da, đặc biệt là đối với da
+          khô. Việc sử dụng hàng ngày có thể làm da bị "bội thực" dưỡng chất, gây bí da và có thể dẫn đến mụn.
+        </p>
+        <p class="blog-detail__paragraph">
+          <em>Lưu ý: Chỉ nên thoa lớp mỏng để tránh bí tắc lỗ chân lông.</em>
+        </p>
+
+        <!-- 2.4 AHA/BHA Mask -->
+        <h3 class="blog-detail__sub-heading">2.4. Mặt nạ chứa hoạt chất mạnh (AHA/BHA, Vitamin C)</h3>
+        <p class="blog-detail__paragraph">
+          Các loại mặt nạ chứa các hoạt chất mạnh như AHA, BHA, retinol hay vitamin C có tác dụng tái tạo, làm sạch sâu
+          và làm sáng da.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Thời gian: 5 – 10 phút</strong> (tuỳ theo hướng dẫn sử dụng của từng sản phẩm). Riêng đối với mặt nạ
+          vitamin C, thời gian có thể dài hơn, từ 15 – 20 phút.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Tần suất:</strong> từ 1 – 2 lần/tuần để da có đủ thời gian phục hồi và tránh tình trạng da bị mỏng,
+          yếu và dễ kích ứng.
+        </p>
+        <p class="blog-detail__paragraph">
+          <em>Lưu ý: Thử trước trên vùng da nhỏ để tránh kích ứng.</em>
+        </p>
+
+        <!-- 2.5 DIY Mask -->
+        <h3 class="blog-detail__sub-heading">2.5. Mặt nạ tự làm tại nhà (DIY Mask)</h3>
+        <p class="blog-detail__paragraph">
+          Mặt nạ tự làm tại nhà thường được chế biến từ nguyên liệu tự nhiên như mật ong, sữa chua, nghệ hay trái cây,
+          mang lại sự an toàn, tiết kiệm và dễ thực hiện tại nhà.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Thời gian: 10 – 15 phút,</strong> rửa sạch khi mặt nạ vừa se lại nhưng vẫn còn hơi ẩm, không để mặt
+          nạ khô hoàn toàn trên da.
+        </p>
+        <p class="blog-detail__paragraph">
+          <strong>Tần suất: 1 – 2 lần/tuần.</strong>
+        </p>
+        <p class="blog-detail__paragraph">
+          <em>
+            Lưu ý: Đảm bảo nguyên liệu sạch, đạt chuẩn sử dụng trong chăm sóc da, tránh các thành phần có tính axit
+            cao.
+          </em>
+        </p>
+
+        <!-- Section 3 -->
+        <h2 class="blog-detail__section-heading">3. Quy trình chuẩn khi đắp mặt nạ</h2>
+        <ol class="blog-detail__ordered-list">
+          <li>
+            <strong>Làm sạch sâu:</strong> Tẩy trang &amp; rửa mặt kỹ, kết hợp tẩy tế bào chết 1–2 lần/tuần, giúp cho
+            lỗ chân lông thông thoáng, tạo điều kiện thuận lợi cho dưỡng chất thẩm thấu sâu vào da.
+          </li>
+          <li>
+            <strong>Cân bằng da:</strong> Dùng toner để cân bằng độ pH, hỗ trợ làm sạch các tạp chất còn sót lại và
+            giúp da sẵn sàng hấp thụ dưỡng chất.
+          </li>
+          <li>
+            <strong>Đắp mặt nạ:</strong> Theo thời gian chuẩn của từng loại.
+          </li>
+          <li>
+            <strong>Xử lý sau khi rửa/gỡ bỏ mặt nạ:</strong>
+            <ul class="blog-detail__list blog-detail__list--nested">
+              <li>
+                <em>Mặt nạ giấy/gel:</em> Vỗ nhẹ để tinh chất còn lại thẩm thấu hoàn toàn vào da.
+              </li>
+              <li>
+                <em>Mặt nạ đất sét/bùn:</em> Rửa sạch bằng nước mát.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Khóa ẩm:</strong> Thoa một lớp serum và kem dưỡng ẩm để giúp tạo lớp màng bảo vệ, khóa chặt các
+            dưỡng chất và độ ẩm đã được cung cấp từ mặt nạ, ngăn chúng bay hơi. Bước này đảm bảo da được nuôi dưỡng
+            toàn diện và giữ được vẻ căng mướt, mềm mịn.
+          </li>
+        </ol>
+
+      </main>
+      <!-- END MAIN CONTENT COLUMN -->
+
+      <!-- ---- SIDEBAR COLUMN ---- -->
+      <aside class="blog-detail__sidebar">
+
+        <!-- Popular Articles -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-section__title">Bài viết xem nhiều</h3>
+          <span class="sidebar-section__underline"></span>
+
+          <!-- Popular Article 1 -->
+          <div class="sidebar-article">
+            <img
+              class="sidebar-article__image"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/a5364922f92f326aecf4330c3e858b69c1a5e492?width=640"
+              alt="Top 10 Kem Chống Nắng"
+            />
+            <h4 class="sidebar-article__title">
+              Top 10 Kem Chống Nắng Bán Chạy Nhất Tại DERMASKIN
+            </h4>
+          </div>
+
+          <!-- Popular Article 2 -->
+          <div class="sidebar-article">
+            <img
+              class="sidebar-article__image"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/b16b178734fceaa777daed8664c58e3dbd3e0329?width=640"
+              alt="Top 10 Kem Dưỡng Trắng Da Body"
+            />
+            <h4 class="sidebar-article__title">
+              Top 10 Kem Dưỡng Trắng Da Body Hoàn Hảo Cho Các Nàng
+            </h4>
+          </div>
+
+          <!-- Popular Article 3 -->
+          <div class="sidebar-article">
+            <img
+              class="sidebar-article__image"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/3521ee0ae2f3133419003d0d90fc4b4f113af8b6?width=640"
+              alt="Top 10 Serum Trắng Da"
+            />
+            <h4 class="sidebar-article__title">
+              Top 10 Serum Trắng Da "Thần Thánh" Giá Mềm Mà Cực Hiệu Quả
+            </h4>
+          </div>
+
+          <!-- Popular Article 4 -->
+          <div class="sidebar-article">
+            <img
+              class="sidebar-article__image"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/00ba77f9eb14573bf98fb89e36673783065d1e84?width=640"
+              alt="Top 5 Dầu Gội Kiểm Soát Dầu"
+            />
+            <h4 class="sidebar-article__title">
+              Top 5 Dầu Gội Giúp Kiểm Soát Dầu, Giảm Ngứa Trên Tóc
+            </h4>
+          </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-section__title">Sản phẩm liên quan</h3>
+          <span class="sidebar-section__underline"></span>
+
+          <!-- Product Card (repeated 6 times to match design) -->
+          <ng-container *ngFor="let product of relatedProducts">
+            <div class="product-card">
+              <div class="product-card__image-wrapper">
+                <img
+                  class="product-card__image"
+                  [src]="product.image"
+                  [alt]="product.name"
+                />
+                <!-- Wishlist Button -->
+                <button class="product-card__wishlist" aria-label="Thêm vào yêu thích">
+                  <svg width="16" height="16" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 17.5L8.55 16.2C3.4 11.55 0 8.48 0 4.75C0 1.9 2.24 0 5 0C6.48 0 7.91 0.65 9 1.68C10.09 0.65 11.52 0 13 0C15.76 0 18 1.9 18 4.75C18 8.48 14.6 11.55 9.45 16.2L10 17.5Z" fill="#E8627B"/>
+                  </svg>
+                </button>
+                <!-- Discount Badge -->
+                <span class="product-card__discount">-51%</span>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__pricing">
+                  <span class="product-card__price">{{ product.price }}</span>
+                  <span class="product-card__original-price">{{ product.originalPrice }}</span>
+                </div>
+                <h4 class="product-card__name">{{ product.name }}</h4>
+                <p class="product-card__desc">{{ product.description }}</p>
+                <div class="product-card__footer">
+                  <div class="product-card__rating">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/>
+                    </svg>
+                    <span>{{ product.rating }}</span>
+                  </div>
+                  <span class="product-card__sold">Đã bán {{ product.sold }} sản phẩm</span>
+                  <button class="product-card__buy-btn">Mua ngay</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+
+      </aside>
+      <!-- END SIDEBAR COLUMN -->
+
+    </div>
+    <!-- END TWO-COLUMN LAYOUT -->
+
+  </div>
+  <!-- END VIEW 2 -->
+
+</div>
+<!-- END .blog-page -->

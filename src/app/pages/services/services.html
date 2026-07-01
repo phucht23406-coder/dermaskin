@@ -1,1 +1,200 @@
 <p>services works!</p>
+<div class="services-wrapper">
+
+  <!-- ==========================================================================
+       VIEW 1: GENERAL SERVICES OVERVIEW (LISTING)
+       Hiển thị khi isDetailView == false
+       ========================================================================== -->
+  <div class="listing-view" *ngIf="!isDetailView">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Dịch vụ của chúng tôi</h2>
+        <p class="section-subtitle">Chăm sóc sắc đẹp chuyên nghiệp tại Dermaskin</p>
+      </div>
+
+      <!-- Grid danh sách dịch vụ -->
+      <div class="services-grid">
+        <div class="service-card" *ngFor="let service of servicesList" (click)="openServiceDetail(service)">
+          <div class="card-image">
+            <img [src]="service.image" [alt]="service.name">
+            <div class="discount-badge" *ngIf="service.discount">{{ service.discount }}</div>
+            <button class="wishlist-btn" (click)="$event.stopPropagation()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/></svg>
+            </button>
+          </div>
+          
+          <div class="card-content">
+            <div class="price-row">
+              <span class="current-price">{{ service.price | number }}đ</span>
+              <span class="old-price" *ngIf="service.oldPrice">{{ service.oldPrice | number }}đ</span>
+            </div>
+            <h3 class="service-name">{{ service.name }}</h3>
+            <p class="service-desc">{{ service.description }}</p>
+            
+            <div class="card-footer">
+              <div class="rating">
+                <svg class="star-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M9.49236 6.33333L7.63666 0L5.78095 6.33333H0L4.71945 9.82458L2.92484 15.8333L7.63666 12.1204L12.3561 15.8333L10.5615 9.82458L15.2733 6.33333H9.49236Z" fill="#FFCC00"/></svg>
+                <span>{{ service.rating }}</span>
+              </div>
+              <span class="sales-count">Đã bán {{ service.salesCount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="view-more-container">
+        <button class="btn-outline">Xem thêm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       VIEW 2: SERVICE DETAIL
+       Hiển thị khi isDetailView == true
+       ========================================================================== -->
+  <div class="detail-view" *ngIf="isDetailView">
+    <div class="container">
+      <!-- Nút quay lại -->
+      <button class="back-link" (click)="closeDetailView()">
+        <svg width="20" height="20" viewBox="0 0 11 19" fill="none"><path d="M10.7878 18.5733L0 9.28666L10.7878 -1.01328e-06" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Quay lại danh sách dịch vụ
+      </button>
+
+      <div class="product-main">
+        <!-- Gallery ảnh -->
+        <div class="gallery-section">
+          <div class="main-image">
+            <div class="placeholder-img"></div> <!-- Thay thế bằng img thật trong TS -->
+          </div>
+          <div class="thumbnail-list">
+            <button class="nav-arrow prev">
+               <svg width="11" height="19" viewBox="0 0 11 19"><path d="M10.7878 18.5733L0 9.28666L10.7878 -1.01328e-06" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="thumb-item active"><img src="https://api.builder.io/api/v1/image/assets/TEMP/a0aec7389b59c267fe9e6cb147a75e605ac97963?width=210" alt="thumb"></div>
+            <div class="thumb-item"><img src="https://api.builder.io/api/v1/image/assets/TEMP/a0aec7389b59c267fe9e6cb147a75e605ac97963?width=210" alt="thumb"></div>
+            <div class="thumb-item"><img src="https://api.builder.io/api/v1/image/assets/TEMP/a0aec7389b59c267fe9e6cb147a75e605ac97963?width=210" alt="thumb"></div>
+            <button class="nav-arrow next">
+               <svg width="11" height="19" viewBox="0 0 11 19"><path d="M-2.60354e-07 0L10.7878 9.28666L-2.60354e-07 18.5733" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Thông tin chi tiết -->
+        <div class="info-section">
+          <div class="info-header">
+            <div class="rating-summary">
+              <span class="rating-value">4.8</span>
+              <div class="stars">
+                <!-- SVG Stars -->
+                <svg *ngFor="let i of [1,2,3,4]" width="20" height="20" viewBox="0 0 20 20" fill="#333"><path d="M10 2l2.5 6.5h7l-5.5 4.5 2 7-6-4.5-6 4.5 2-7-5.5-4.5h7z"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="#333"><path d="M10 2.214l1.929 3.963 4.341.624-3.14 3.054.741 4.324-3.871-2.038v-9.927z"/></svg>
+              </div>
+              <span class="review-count">82 Đánh giá</span>
+            </div>
+            <button class="favorite-btn">
+              <svg width="37" height="27" viewBox="0 0 37 27" fill="none" stroke="#333"><path d="M23.5293 0.5C27.9755 0.5 31.4999 3.92862 31.5 8.18164C31.5 10.7692 30.7337 12.8618 28.457 15.5029C26.1531 18.1756 22.3342 21.3736 16.2559 26.1523L16 26.3574L15.7441 26.1523C9.66585 21.3736 5.84689 18.1756 3.54297 15.5029C1.26629 12.8618 0.5 10.7692 0.5 8.18164C0.500098 3.92862 4.02454 0.5 8.4707 0.5C12.1105 0.500041 14.1491 2.45428 15.6318 4.06543L16 4.46582L16.3682 4.06543C17.8509 2.45428 19.8895 0.500042 23.5293 0.5Z"/></svg>
+            </button>
+          </div>
+
+          <h1 class="product-title">{{ selectedService?.name || 'Tên dịch vụ' }}</h1>
+          
+          <div class="price-container">
+            <span class="main-price">230,000đ</span>
+            <span class="strike-price">290,000đ</span>
+          </div>
+
+          <div class="action-group">
+            <button class="btn-primary btn-large">Đặt hẹn</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mô tả dịch vụ -->
+      <div class="content-block description-card">
+        <h2 class="block-title">Mô tả dịch vụ</h2>
+        <div class="block-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tellus dolor, congue nec mollis et, aliquet vitae sapien. Maecenas bibendum risus eget nisl dapibus, quis placerat quam interdum. Ut lobortis erat eget sem vulputate, eu maximus ipsum varius. Donec tempor, magna ac vestibulum euismod, quam felis scelerisque elit, vitae mattis sapien mi ac sem. Nam eleifend mauris lorem, a mollis sapien efficitur et. Donec elit nulla, ullamcorper a nulla sed, bibendum auctor nisi.</p>
+        </div>
+        <div class="show-more-wrap">
+          <button class="btn-more">Xem thêm <svg width="21" height="8" viewBox="0 0 21 8" fill="none"><path d="M20.8371 1.3411e-07L10.4185 7.91052L1.01328e-06 1.3411e-07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Đánh giá dịch vụ -->
+      <div class="content-block review-card">
+        <h2 class="block-title">Đánh giá dịch vụ</h2>
+        
+        <div class="review-stats-header">
+          <div class="average-score">
+            <span class="score-num">4.8</span>
+            <div class="stars-md">
+               <!-- Stars SVG loop -->
+               <svg *ngFor="let i of [1,2,3,4,5]" width="20" height="20" viewBox="0 0 20 20" fill="#E8627B"><path d="M10 2l2.5 6.5h7l-5.5 4.5 2 7-6-4.5-6 4.5 2-7-5.5-4.5h7z"/></svg>
+            </div>
+            <span class="total-reviews">15 đánh giá</span>
+          </div>
+
+          <div class="rating-bars">
+            <div class="bar-item" *ngFor="let star of [5,4,3,2,1]; let i = index">
+              <span>{{ star }}</span>
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="#E8627B"><path d="M8.5 0l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z"/></svg>
+              <div class="progress-bg">
+                <div class="progress-fill" [style.width]="(i == 0 ? 80 : (i == 1 ? 20 : 0)) + '%'"></div>
+              </div>
+              <span class="bar-count">{{ i == 0 ? '12' : (i == 1 ? '3' : '0') }} đánh giá</span>
+            </div>
+          </div>
+
+          <div class="write-review-cta">
+            <p>Chia sẻ đánh giá của bạn về dịch vụ này</p>
+            <button class="btn-primary">Viết đánh giá</button>
+          </div>
+        </div>
+
+        <!-- Danh sách bình luận -->
+        <div class="comments-list">
+          <div class="comment-item" *ngFor="let i of [1,2,3,4]">
+            <div class="comment-header">
+              <span class="user-name">User’s name</span>
+              <div class="user-rating">
+                <svg *ngFor="let s of [1,2,3,4,5]" width="16" height="16" viewBox="0 0 20 20" fill="#E8627B"><path d="M10 2l2.5 6.5h7l-5.5 4.5 2 7-6-4.5-6 4.5 2-7-5.5-4.5h7z"/></svg>
+              </div>
+            </div>
+            <span class="comment-date">2024-10-07 14:51</span>
+            <p class="comment-text">Dịch vụ tuyệt vời, nhân viên tận tâm chuyên nghiệp.</p>
+            <div class="comment-photos">
+              <div class="photo-placeholder"></div>
+              <div class="photo-placeholder"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phân trang -->
+        <div class="pagination">
+          <button class="page-arrow"><svg width="10" height="18" viewBox="0 0 11 19"><path d="M10 18L1 9L10 0" stroke="#808080" stroke-width="2"/></svg></button>
+          <span class="page-num active">1</span>
+          <span class="page-num">2</span>
+          <span class="page-num">3</span>
+          <span class="page-num">4</span>
+          <span class="page-num">5</span>
+          <button class="page-arrow"><svg width="10" height="18" viewBox="0 0 11 19"><path d="M1 0L10 9L1 18" stroke="black" stroke-width="2"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Sản phẩm liên quan (Giữ lại cấu trúc card từ Listing) -->
+      <div class="related-section">
+        <div class="related-header">
+          <h2 class="block-title">Sản phẩm liên quan</h2>
+          <button class="btn-outline-sm">Xem thêm</button>
+        </div>
+        <div class="services-grid">
+           <!-- Reusing the card loop for related products -->
+           <div class="service-card" *ngFor="let service of relatedServices">
+              <!-- Content same as above -->
+           </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
