@@ -1,1 +1,142 @@
-<p>auth works!</p>
+<main class="auth-outer-container">
+  <div class="auth-card-wrapper">
+    
+    <div class="auth-brand-header">
+      <h1 class="brand-title">DERMASKIN</h1>
+      <p class="brand-subtitle">Chào mừng bạn đến với chúng tôi</p>
+    </div>
+
+    <form class="auth-form-step" *ngIf="step === 1">
+      <h2 class="form-step-title">Đăng ký</h2>
+      
+      <div class="input-field-group">
+        <label class="field-label">Tên tài khoản</label>
+        <input type="text" placeholder="Nhập tên tài khoản" class="custom-input">
+      </div>
+
+      <div class="input-field-group">
+        <label class="field-label">Mật khẩu</label>
+        <input type="password" placeholder="Nhập mật khẩu" class="custom-input">
+      </div>
+
+      <div class="input-field-group">
+        <label class="field-label">Xác nhận mật khẩu</label>
+        <input type="password" placeholder="Xác nhận mật khẩu" class="custom-input">
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="goToStep(4)">Tiếp tục</button>
+
+      <div class="social-login-separator"><span>Hoặc</span></div>
+
+      <div class="social-buttons-flex">
+        <button type="button" class="btn-social google" (click)="redirectTo('https://accounts.google.com')">
+          <P> Google</P>
+        </button>
+        <button type="button" class="btn-social facebook" (click)="redirectTo('https://www.facebook.com')">
+          <P> Facebook</P>
+        </button>
+      </div>
+
+      <p class="auth-switch-footer">
+        Bạn đã có tài khoản? <span class="highlight-link" (click)="goToStep(2)">Đăng nhập</span>
+      </p>
+    </form>
+
+    <form class="auth-form-step" *ngIf="step === 2">
+      <h2 class="form-step-title">Đăng nhập</h2>
+
+      <div class="input-field-group">
+        <label class="field-label">Tên tài khoản hoặc Email</label>
+        <input type="text" placeholder="Nhập tài khoản hoặc email" class="custom-input">
+      </div>
+
+      <div class="input-field-group">
+        <label class="field-label">Mật khẩu</label>
+        <input type="password" placeholder="Nhập mật khẩu" class="custom-input">
+      </div>
+
+      <div class="forgot-password-align">
+        <span class="highlight-link" (click)="goToStep(3)">Quên mật khẩu?</span>
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="onLoginSuccess()">Đăng nhập</button>
+
+      <div class="social-login-separator"><span>Hoặc</span></div>
+
+      <div class="social-buttons-flex">
+        <button type="button" class="btn-social google" (click)="redirectTo('https://accounts.google.com')">
+          <img src="https://api.builder.io/api/v1/image/assets/TEMP/f16bf80ba52309bf1f274092b3a98db85fb5e19f" alt="Google"> Google
+        </button>
+        <button type="button" class="btn-social facebook" (click)="redirectTo('https://www.facebook.com')">
+          <img src="https://api.builder.io/api/v1/image/assets/TEMP/b45f4d2f80c6b16d1f0579e0f31a293678eb1403" alt="Facebook"> Facebook
+        </button>
+      </div>
+
+      <p class="auth-switch-footer">
+        Bạn chưa có tài khoản? <span class="highlight-link" (click)="goToStep(1)">Đăng ký</span>
+      </p>
+    </form>
+
+    <form class="auth-form-step" *ngIf="step === 3">
+      <h2 class="form-step-title">Quên mật khẩu</h2>
+      <p class="step-instruction-text">Vui lòng điền Email hoặc số điện thoại của bạn để nhận mã xác minh OTP.</p>
+
+      <div class="input-field-group">
+        <label class="field-label">Email / Số điện thoại</label>
+        <input type="text" placeholder="Nhập email hoặc số điện thoại" class="custom-input">
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="goToStep(5)">Xác nhận</button>
+
+      <div class="back-to-login-wrapper">
+        <span class="highlight-link" (click)="goToStep(2)">← Quay lại Đăng nhập</span>
+      </div>
+    </form>
+
+    <div class="auth-form-step" *ngIf="step === 4">
+      <h2 class="form-step-title">Mã xác nhận OTP</h2>
+      <p class="step-instruction-text">Một mã code gồm 4 ký tự đã được gửi đến thiết bị của bạn để hoàn tất đăng ký.</p>
+
+      <div class="otp-boxes-container">
+        <input type="text" maxlength="1" class="otp-box-cell">
+        <input type="text" maxlength="1" class="otp-box-cell">
+        <input type="text" maxlength="1" class="otp-box-cell">
+        <input type="text" maxlength="1" class="otp-box-cell">
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="goToStep(2)">Hoàn tất kích hoạt</button>
+    </div>
+
+    <div class="auth-form-step" *ngIf="step === 5">
+      <h2 class="form-step-title">Xác minh danh tính</h2>
+      <p class="step-instruction-text">Nhập mã OTP khôi phục được gửi đến bạn để tiến hành đặt lại mật khẩu mới.</p>
+
+      <div class="otp-boxes-container">
+        <input type="text" maxlength="1" class="otp-box-cell" (keyup)="onOtpVerify($event)">
+        <input type="text" maxlength="1" class="otp-box-cell" (keyup)="onOtpVerify($event)">
+        <input type="text" maxlength="1" class="otp-box-cell" (keyup)="onOtpVerify($event)">
+        <input type="text" maxlength="1" class="otp-box-cell" (keyup)="onOtpVerify($event)">
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="goToStep(6)">Tiếp tục</button>
+    </div>
+
+    <form class="auth-form-step" *ngIf="step === 6">
+      <h2 class="form-step-title">Mật khẩu mới</h2>
+      <p class="step-instruction-text">Thiết lập lại mật khẩu bảo mật mới cho tài khoản của bạn.</p>
+
+      <div class="input-field-group">
+        <label class="field-label">Mật khẩu mới</label>
+        <input type="password" placeholder="Nhập mật khẩu mới" class="custom-input">
+      </div>
+
+      <div class="input-field-group">
+        <label class="field-label">Xác nhận mật khẩu mới</label>
+        <input type="password" placeholder="Xác nhận lại mật khẩu mới" class="custom-input">
+      </div>
+
+      <button type="button" class="btn-primary-auth" (click)="goToStep(2)">Lưu và Đăng nhập</button>
+    </form>
+
+  </div>
+</main>
