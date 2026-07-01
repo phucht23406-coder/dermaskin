@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { Header } from '../../shared/header/header';
+import { Footer } from '../../shared/footer/footer';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  standalone: true,
+  imports: [Header, Footer],
   templateUrl: './cart.html',
-  styleUrl: './cart.css',
+  styleUrl: './cart.css'
 })
-export class Cart {}
+export class Cart {
+
+}
