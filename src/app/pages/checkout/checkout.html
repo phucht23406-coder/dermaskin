@@ -1,1 +1,133 @@
-<p>checkout works!</p>
+<app-header></app-header>
+
+<main class="payment-flow-container">
+
+  <ng-container *ngIf="!isSuccess">
+    
+    <section class="checkout-form-section">
+      <div class="section-header">
+        <h2 class="section-title">Thanh toán</h2>
+      </div>
+
+      <div class="info-block" style="margin-top: 20px;">
+        <div class="info-row">
+          <p class="info-text">KTX khu B, ĐHQG, Linh Trung, Thủ Đức, Hồ Chí Minh</p>
+          <button class="change-btn" type="button">Thay đổi</button>
+        </div>
+        <div class="info-row">
+          <p class="info-text">0337085331</p>
+          <button class="change-btn" type="button">Thay đổi</button>
+        </div>
+      </div>
+
+      <div class="payment-methods-block">
+        <h3 class="block-title">Thanh toán với:</h3>
+        <div class="method-options">
+          
+          <div class="method-option" [class.active]="selectedMethod === 'bank'" (click)="selectMethod('bank')">
+            <div class="radio-circle">
+              <div class="radio-inner"></div>
+            </div>
+            <span>Tài khoản ngân hàng</span>
+          </div>
+          
+          <div class="method-option" [class.active]="selectedMethod === 'direct'" (click)="selectMethod('direct')">
+            <div class="radio-circle">
+              <div class="radio-inner"></div>
+            </div>
+            <span>Trực tiếp</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-inputs-block" *ngIf="selectedMethod === 'bank' && !isOtpStep">
+        <div class="input-group">
+          <span class="input-label">Ngân hàng</span>
+          <input type="text" class="form-input" placeholder="Nhập tên ngân hàng">
+        </div>
+        <div class="input-group">
+          <span class="input-label">Số tài khoản</span>
+          <input type="text" class="form-input" placeholder="Nhập số tài khoản ngân hàng">
+        </div>
+      </div>
+
+      <div class="otp-verification-block" *ngIf="selectedMethod === 'bank' && isOtpStep">
+        <p class="otp-hint-text">Nhập mã code 4 kí tự được gửi đến bạn để xác nhận thanh toán</p>
+        <div class="otp-inputs-wrapper">
+          <input type="text" maxlength="1" class="otp-field">
+          <input type="text" maxlength="1" class="otp-field">
+          <input type="text" maxlength="1" class="otp-field">
+          <input type="text" maxlength="1" class="otp-field">
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <button type="button" class="submit-btn" (click)="onSubmit()">
+          {{ (selectedMethod === 'bank' && isOtpStep) ? 'Xác nhận thanh toán' : 'Mua ngay' }}
+        </button>
+        <p class="privacy-notice">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục đích khác được mô tả trong chính sách bảo mật của chúng tôi.</p>
+      </div>
+    </section>
+
+    <aside class="order-summary-section">
+      <div class="section-header">
+        <h2 class="section-title">Thông tin đơn hàng</h2>
+      </div>
+
+      <div class="voucher-block">
+        <input type="text" class="voucher-input" placeholder="Mã voucher">
+        <button class="voucher-btn" type="button">Áp dụng</button>
+      </div>
+
+      <div class="cart-container">
+        <h3 class="block-title">Giỏ hàng</h3>
+        <div class="items-list">
+          <div class="cart-item">
+            <img class="item-img" src="https://api.builder.io/api/v1/image/assets/TEMP/97f1d5e8cc72e925c37bc4eb35f088811ea9a918?width=140" alt="Serum">
+            <div class="item-details">
+              <div class="item-main-row">
+                <span class="item-name">Serum trị mụn</span>
+                <span class="item-price">400.000 đ</span>
+              </div>
+              <div class="item-sub-row">
+                <span class="item-spec">50ml</span>
+                <span class="item-qty">SL: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-breakdown">
+        <h3 class="block-title">Chi tiết</h3>
+        <div class="pricing-row">
+          <span class="pricing-label">Tổng cộng</span><span class="pricing-val">400.000đ</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Voucher</span><span class="pricing-val">10.000đ</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Phí ship</span><span class="pricing-val">11.000đ</span>
+        </div>
+      </div>
+
+      <div class="grand-total-block">
+        <span class="total-label">Tổng cộng</span>
+        <span class="total-amount">1.000.000đ</span>
+      </div>
+    </aside>
+
+  </ng-container>
+
+  <div class="success-screen-fixed" *ngIf="isSuccess">
+    <div class="success-card-center">
+      <h1 class="success-title">Cảm ơn bạn đã mua hàng</h1>
+      <p class="success-subtitle">Đơn hàng #123RGR231567Y đã được xác nhận</p>
+      <button type="button" class="submit-btn continue-btn" (click)="resetPage()">Tiếp tục mua hàng</button>
+    </div>
+  </div>
+
+</main>
+
+<app-footer></app-footer>
