@@ -13,10 +13,12 @@ import { Policies } from './pages/policies/policies';
 import { AiConsult } from './pages/ai-consult/ai-consult';
 import { Stores } from './pages/stores/stores';
 import { Warranty } from './pages/warranty/warranty';
+import { CartEmpty } from './pages/cart_empty/cart_empty';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'auth', component: Auth },
+  { path: 'cart_empty', component: CartEmpty },
   { path: 'products', component: Products },
   { path: 'product/:id', component: ProductDetail },
   { path: 'services', component: Services },
