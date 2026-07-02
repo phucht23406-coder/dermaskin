@@ -1,0 +1,32 @@
+<div class="account-page">
+
+  <!-- Sidebar trái -->
+  <aside class="sidebar">
+    <div class="user-info">
+      <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+      <div>
+        <p class="greeting">Chào Nguyễn An</p>
+        <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">Thông tin tài khoản</a>
+      <a href="#" class="nav-item">Đơn hàng của tôi</a>
+      <a href="#" class="nav-item">Sản phẩm yêu thích</a>
+      <a href="#" class="nav-item">Voucher của tôi</a>
+      <a href="#" class="nav-item">Lịch hẹn dịch vụ</a>
+      <a href="#" class="nav-item active" (click)="openPopup(); $event.preventDefault()">Đăng xuất</a>    </nav>
+  </aside>
+
+  <!-- Popup đăng xuất -->
+  <div class="overlay" *ngIf="showPopup">
+    <div class="popup">
+      <p class="popup-text">Đăng xuất khỏi tài khoản của bạn?</p>
+      <div class="popup-actions">
+        <button class="btn-logout" (click)="confirmLogout()">Đăng xuất</button>
+        <button class="btn-cancel" (click)="cancelLogout()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+</div>

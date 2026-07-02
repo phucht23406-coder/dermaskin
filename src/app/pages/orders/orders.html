@@ -1,0 +1,83 @@
+<div class="account-page">
+
+  <!-- Sidebar trái -->
+  <aside class="sidebar">
+    <div class="user-info">
+      <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+      <div>
+        <p class="greeting">Chào Nguyễn An</p>
+        <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">Thông tin tài khoản</a>
+      <a href="#" class="nav-item active">Đơn hàng của tôi</a>
+      <a href="#" class="nav-item">Sản phẩm yêu thích</a>
+      <a href="#" class="nav-item">Voucher của tôi</a>
+      <a href="#" class="nav-item">Lịch hẹn dịch vụ</a>
+      <a href="#" class="nav-item">Đăng xuất</a>
+    </nav>
+  </aside>
+
+  <!-- Nội dung phải -->
+  <main class="account-content">
+    <h2 class="section-title">Đơn hàng của tôi</h2>
+
+    <!-- Tabs trạng thái -->
+    <div class="order-tabs">
+      <button class="tab-btn active" (click)="selectTab($event)">Tất cả</button>
+      <button class="tab-btn" (click)="selectTab($event)">Mới đặt</button>
+      <button class="tab-btn" (click)="selectTab($event)">Đang xử lý</button>
+      <button class="tab-btn" (click)="selectTab($event)">Đang vận chuyển</button>
+      <button class="tab-btn" (click)="selectTab($event)">Thành công</button>
+      <button class="tab-btn" (click)="selectTab($event)">Đã hủy</button>
+    </div>
+
+    <!-- Bảng đơn hàng -->
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th class="col-product">Sản phẩm</th>
+          <th class="col-price">Giá tiền</th>
+          <th class="col-total">Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-product">
+            <div class="product-info">
+              <img src="assets/serum.jpg" alt="Serum trị mụn" class="product-img" />
+              <div>
+                <p class="product-name">Serum trị mụn</p>
+                <p class="product-detail">50ml</p>
+              </div>
+            </div>
+          </td>
+          <td class="col-price">
+            <p class="price">400.000 đ</p>
+            <p class="quantity">SL: 1</p>
+          </td>
+          <td class="col-total">400.000 đ</td>
+        </tr>
+        <tr>
+          <td class="col-product">
+            <div class="product-info">
+              <img src="assets/bioderma.jpg" alt="Bộ làm sạch da" class="product-img" />
+              <div>
+                <p class="product-name">Bộ làm sạch da</p>
+                <p class="product-detail">Bộ 3 sản phẩm</p>
+              </div>
+            </div>
+          </td>
+          <td class="col-price">
+            <p class="price">600.000 đ</p>
+            <p class="quantity">SL: 1</p>
+          </td>
+          <td class="col-total">600.000 đ</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+</div>

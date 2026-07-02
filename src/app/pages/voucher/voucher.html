@@ -1,0 +1,57 @@
+<div class="account-page">
+
+  <!-- Sidebar trái -->
+  <aside class="sidebar">
+    <div class="user-info">
+      <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+      <div>
+        <p class="greeting">Chào Nguyễn An</p>
+        <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">Thông tin tài khoản</a>
+      <a href="#" class="nav-item">Đơn hàng của tôi</a>
+      <a href="#" class="nav-item">Sản phẩm yêu thích</a>
+      <a href="#" class="nav-item active">Voucher của tôi</a>
+      <a href="#" class="nav-item">Lịch hẹn dịch vụ</a>
+      <a href="#" class="nav-item">Đăng xuất</a>
+    </nav>
+  </aside>
+
+  <!-- Nội dung phải -->
+  <main class="account-content">
+    <h2 class="section-title">Voucher của tôi</h2>
+
+    <!-- Trạng thái trống -->
+    <div class="empty-state" *ngIf="vouchers.length === 0">
+      <div class="voucher-icon">
+        <svg width="80" height="60" viewBox="0 0 80 60" fill="none">
+          <rect x="2" y="10" width="76" height="40" rx="6" stroke="#333" stroke-width="2.5" fill="none"/>
+          <circle cx="2" cy="30" r="6" fill="#fff7f7" stroke="#333" stroke-width="2.5"/>
+          <circle cx="78" cy="30" r="6" fill="#fff7f7" stroke="#333" stroke-width="2.5"/>
+          <line x1="20" y1="10" x2="20" y2="50" stroke="#333" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="42" y="35" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">%</text>
+        </svg>
+      </div>
+      <p class="empty-text">Ví voucher của bạn đang trống</p>
+    </div>
+
+    <!-- Danh sách voucher (khi có) -->
+    <div class="voucher-list" *ngIf="vouchers.length > 0">
+      <div class="voucher-card" *ngFor="let v of vouchers">
+        <div class="voucher-left">
+          <p class="voucher-discount">{{ v.discount }}</p>
+          <p class="voucher-type">{{ v.type }}</p>
+        </div>
+        <div class="voucher-divider"></div>
+        <div class="voucher-right">
+          <p class="voucher-code">{{ v.code }}</p>
+          <p class="voucher-expire">HSD: {{ v.expire }}</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>

@@ -1,1 +1,140 @@
-<p>ai-consult works!</p>
+<div class="consultation-page">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <span class="bc-home">Trang chủ</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Tư vấn da</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- CỘT TRÁI: TRẮC NGHIỆM -->
+    <div class="box box-left">
+      <h2 class="box-title">1. TRẮC NGHIỆM PHÂN TÍCH DA</h2>
+      <p class="box-subtitle">Trả lời vài câu hỏi ngắn để xác định loại da và tình trạng da của bạn.</p>
+
+      <!-- Độ tuổi -->
+      <div class="section-label">1. Độ tuổi</div>
+      <div class="age-group">
+        <button class="age-btn" (click)="selectAge($event)">&#60; 18</button>
+        <button class="age-btn" (click)="selectAge($event)">18 - 24</button>
+        <button class="age-btn" (click)="selectAge($event)">25 - 34</button>
+        <button class="age-btn" (click)="selectAge($event)">35 - 44</button>
+        <button class="age-btn" (click)="selectAge($event)">&#62; 45</button>
+      </div>
+
+      <!-- Giới tính -->
+      <div class="section-label">2. Giới tính</div>
+      <div class="gender-group">
+        <button class="gender-btn" (click)="selectGender($event)">Nữ</button>
+        <button class="gender-btn" (click)="selectGender($event)">Nam</button>
+      </div>
+
+      <!-- Tình trạng da -->
+      <div class="section-label">3. Tình trạng da <span class="label-note">(Chọn tất cả phù hợp)</span></div>
+      <div class="checkbox-grid">
+        <label class="checkbox-item"><input type="checkbox"> Đổ dầu vùng chữ T</label>
+        <label class="checkbox-item"><input type="checkbox"> Dễ kích ứng</label>
+        <label class="checkbox-item"><input type="checkbox"> Dễ nổi mụn</label>
+        <label class="checkbox-item"><input type="checkbox"> Lỗ chân lông to</label>
+        <label class="checkbox-item"><input type="checkbox"> Khô căng sau khi rửa mặt</label>
+        <label class="checkbox-item"><input type="checkbox"> Da xỉn màu</label>
+      </div>
+
+      <!-- Mục tiêu chăm sóc -->
+      <div class="section-label">4 Mục tiêu chăm sóc</div>
+      <div class="checkbox-grid">
+        <label class="checkbox-item"><input type="checkbox"> Trị mụn</label>
+        <label class="checkbox-item"><input type="checkbox"> Dưỡng ẩm</label>
+        <label class="checkbox-item"><input type="checkbox"> Chống lão hóa</label>
+        <label class="checkbox-item"><input type="checkbox"> Phục hồi da</label>
+      </div>
+      <div class="checkbox-center">
+        <label class="checkbox-item"><input type="checkbox"> Làm sáng da</label>
+      </div>
+
+      <button class="btn-primary" (click)="phanTichDa()">Phân tích da →</button>
+      <p class="privacy-note">Thông tin của bạn được bảo mật tuyệt đối và chỉ sử dụng để phân tích làn da.</p>
+    </div>
+
+    <!-- CỘT PHẢI -->
+    <div class="right-col">
+
+      <!-- Box AI tư vấn -->
+      <div class="box box-right">
+        <h2 class="box-title">2. AI TƯ VẤN DA</h2>
+        <p class="box-subtitle">Tải ảnh da hoặc đặt câu hỏi để nhận tư vấn cá nhân hóa từ AI.</p>
+
+        <div class="upload-row">
+          <div class="upload-left">
+            <div class="section-label-dark">Tải ảnh da (tùy chọn)</div>
+            <div class="upload-zone" (click)="fileInput.click()">
+              <div class="upload-icon" *ngIf="!imagePreview">🖼️</div>
+              <p *ngIf="!imagePreview">Kéo thả hoặc chọn ảnh<br><strong>JPG, PNG ≤ 10MB</strong></p>
+              <img *ngIf="imagePreview" [src]="imagePreview" class="preview-img" />
+            </div>
+            <input #fileInput type="file" accept="image/jpeg,image/png" hidden (change)="onFileSelected($event)" />
+          </div>
+          <div class="upload-right">
+            <div class="section-label-dark">Ảnh của bạn</div>
+            <div class="preview-zone">
+              <img *ngIf="imagePreview" [src]="imagePreview" class="preview-img" />
+            </div>
+            <input #fileInput type="file" accept="image/jpeg,image/png" hidden (change)="onFileSelected($event)" />
+          </div>
+        </div>
+
+        <div class="chat-input-wrap">
+          <textarea class="chat-input" placeholder="Hỏi AI về tình trạng da của bạn..."></textarea>
+        </div>
+
+        <button class="btn-primary">Tư vấn với AI →</button>
+      </div>
+
+      <!-- Box kết quả -->
+      <div class="box box-right" *ngIf="showResult">
+        <h2 class="box-title">KẾT QUẢ TƯ VẤN AI</h2>
+        <p class="box-subtitle">Dựa trên thông tin bạn cung cấp, đây là đánh giá và gợi ý dành cho bạn:</p>
+
+        <div class="result-section">
+          <div class="result-title">📋 Đánh giá sơ bộ</div>
+          <div class="result-box">
+            <p><span class="check">✓</span> Loại da: Hỗn hợp thiên dầu</p>
+            <p><span class="check">✓</span> Tình trạng da: Mụn viêm nhẹ, có dấu hiệu thiếu ẩm</p>
+            <p><span class="check">✓</span> Vấn đề chính: Mụn ẩn, mụn viêm vùng má, lỗ chân lông</p>
+          </div>
+        </div>
+
+        <div class="result-section">
+          <div class="result-title">💡 Gợi ý routine phù hợp</div>
+          <div class="routine-box">
+            <div class="routine-col">
+              <p class="routine-heading">☀️ Routine buổi sáng</p>
+              <ol>
+                <li>Sữa rửa mặt dịu nhẹ</li>
+                <li>Toner cân bằng</li>
+                <li>Serum cấp ẩm (B5, HA)</li>
+                <li>Kem dưỡng ẩm</li>
+                <li>Kem chống nắng SPF50+</li>
+              </ol>
+            </div>
+            <div class="routine-col">
+              <p class="routine-heading">🌙 Routine buổi tối</p>
+              <ol>
+                <li>Tẩy trang</li>
+                <li>Sữa rửa mặt</li>
+                <li>Toner</li>
+                <li>Serum trị mụn (BHA/Salicylic Acid)</li>
+                <li>Kem dưỡng phục hồi</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

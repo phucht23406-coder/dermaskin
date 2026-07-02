@@ -1,0 +1,60 @@
+<div class="account-page">
+
+  <!-- Sidebar trái -->
+  <aside class="sidebar">
+    <div class="user-info">
+      <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+      <div>
+        <p class="greeting">Chào Nguyễn An</p>
+        <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">Thông tin tài khoản</a>
+      <a href="#" class="nav-item">Đơn hàng của tôi</a>
+      <a href="#" class="nav-item">Sản phẩm yêu thích</a>
+      <a href="#" class="nav-item">Voucher của tôi</a>
+      <a href="#" class="nav-item active">Lịch hẹn dịch vụ</a>
+      <a href="#" class="nav-item">Đăng xuất</a>
+    </nav>
+  </aside>
+
+  <!-- Nội dung phải -->
+  <main class="account-content">
+    <h2 class="section-title">Lịch hẹn dịch vụ</h2>
+
+    <!-- Tabs -->
+    <div class="order-tabs">
+      <button class="tab-btn active" (click)="selectTab($event)">Tất cả</button>
+      <button class="tab-btn" (click)="selectTab($event)">Mới đặt</button>
+      <button class="tab-btn" (click)="selectTab($event)">Đã dùng</button>
+      <button class="tab-btn" (click)="selectTab($event)">Đã hủy</button>
+    </div>
+
+    <!-- Bảng dịch vụ -->
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th class="col-service">Dịch vụ</th>
+          <th class="col-price">Giá tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-service">
+            <div class="service-info">
+              <img src="assets/laser.jpg" alt="Triệt Lông Diode Laser" class="service-img" />
+              <div>
+                <p class="service-name">Triệt Lông Diode Laser</p>
+                <p class="service-detail">7 phút</p>
+              </div>
+            </div>
+          </td>
+          <td class="col-price">150.000 đ</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+</div>
