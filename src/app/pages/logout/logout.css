@@ -1,0 +1,118 @@
+.account-page {
+  display: flex;
+  gap: 32px;
+  padding: 32px;
+  max-width: 100%;
+  margin: 0;
+  font-family: 'Lexend Exa', sans-serif;
+  background: #fff7f7;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #fff7f7;
+  border: 1.5px solid #E8627B;
+  border-radius: 16px;
+  padding: 24px 16px;
+  flex-shrink: 0;
+  height: fit-content;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0d0d8;
+}
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+.greeting {
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0;
+}
+.edit-link {
+  font-size: 12px;
+  color: #e8627b;
+  text-decoration: none;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.nav-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #e8627b;
+  font-size: 14px;
+}
+.nav-item.active { font-weight: bold; }
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* Popup */
+.popup {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 48px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  min-width: 320px;
+}
+.popup-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 28px;
+}
+.popup-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.btn-logout {
+  background: #e8627b;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Lexend Exa', sans-serif;
+}
+.btn-logout:hover { background: #c93d6a; }
+.btn-cancel {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px 32px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Lexend Exa', sans-serif;
+}
+.btn-cancel:hover { background: #f5f5f5; }

@@ -1,0 +1,250 @@
+* { box-sizing: border-box; }
+
+.consultation-page {
+  background: #fff7f7;
+  font-family: 'Segoe UI', 'Lexend Exa', sans-serif;
+  padding-bottom: 24px;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+  padding: 16px 32px;
+  font-size: 14px;
+  color: #999;
+}
+.bc-sep { margin: 0 6px; }
+.bc-current { color: #e8627b; font-weight: 600; }
+
+/* MAIN LAYOUT */
+.main-content {
+  display: flex;
+  gap: 24px;
+  padding: 0 32px;
+  align-items: flex-start;
+}
+
+/* BOXES */
+.box {
+  border: 1.5px solid #e8627b;
+  border-radius: 16px;
+  padding: 24px;
+  background: #fff7f7;
+}
+.box-left { flex: 0 0 48%; }
+.right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.box-right { width: 100%; }
+
+.box-title {
+  color: #e8627b;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 8px;
+}
+.box-subtitle {
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+/* SECTION LABELS */
+.section-label {
+  color: #e8627b;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 14px 0 8px;
+}
+.label-note {
+  font-weight: 400;
+  font-size: 12px;
+}
+.section-label-dark {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+/* AGE BUTTONS */
+.age-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.age-btn {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 6px 12px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+.age-btn.active {
+  border-color: #e8627b;
+  background: #ffeef5;
+  color: #e8627b;
+}
+
+/* GENDER BUTTONS */
+.gender-group {
+  display: flex;
+  gap: 10px;
+}
+.gender-btn {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 6px 36px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+.gender-btn.active {
+  border-color: #e8627b;
+  background: #ffeef5;
+  color: #e8627b;
+}
+
+/* CHECKBOXES */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.checkbox-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.checkbox-item:has(input:checked) {
+  border-color: #e8627b;
+  background: #ffeef5;
+}
+.checkbox-item input { accent-color: #e8627b; }
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  display: block;
+  width: 70%;
+  margin: 16px auto 12px;
+  background: #e8627b;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+}
+.btn-primary:hover { background: #c93d6a; }
+
+.privacy-note {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* UPLOAD */
+.upload-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.upload-left, .upload-right { flex: 1; }
+.upload-zone {
+  border: 1px solid #e8627b;
+  background: #ffeef5;
+  border-radius: 8px;
+  padding: 20px 12px;
+  text-align: center;
+  font-size: 13px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.preview-zone {
+  border: 1px solid #e8627b;
+  border-radius: 8px;
+  min-height: 140px;
+  background: #ffeef5;
+}
+
+.upload-zone { cursor: pointer; overflow: hidden; }
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.preview-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* CHAT INPUT */
+.chat-input-wrap { margin-bottom: 8px; }
+.chat-input {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 13px;
+  resize: none;
+  color: #999;
+  background: #fff;
+}
+
+/* RESULT */
+.result-section { margin-bottom: 14px; }
+.result-title {
+  color: #e8627b;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.result-box {
+  background: #ffeef5;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.result-box p { margin: 4px 0; }
+.check { color: green; margin-right: 6px; }
+
+.routine-box {
+  background: #ffeef5;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+.routine-col { flex: 1; }
+.routine-heading { font-weight: 700; margin-bottom: 6px; }
+.routine-col ol { padding-left: 18px; margin: 0; }
+.routine-col li { margin-bottom: 3px; }

@@ -1,0 +1,80 @@
+<div class="account-page">
+
+  <!-- Sidebar trái -->
+  <aside class="sidebar">
+    <div class="user-info">
+      <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+      <div>
+        <p class="greeting">Chào Nguyễn An</p>
+        <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">Thông tin tài khoản</a>
+      <a href="#" class="nav-item">Đơn hàng của tôi</a>
+      <a href="#" class="nav-item active">Sản phẩm yêu thích</a>
+      <a href="#" class="nav-item">Voucher của tôi</a>
+      <a href="#" class="nav-item">Lịch hẹn dịch vụ</a>
+      <a href="#" class="nav-item">Đăng xuất</a>
+    </nav>
+  </aside>
+
+  <!-- Nội dung phải -->
+  <main class="account-content">
+    <div class="content-header">
+      <h2 class="section-title">Sản phẩm yêu thích</h2>
+      <span class="product-count">(2 sản phẩm)</span>
+    </div>
+
+    <table class="wishlist-table">
+      <thead>
+        <tr>
+          <th class="col-product">Sản phẩm</th>
+          <th class="col-status">Trạng thái</th>
+          <th class="col-price">Đơn giá</th>
+          <th class="col-action"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-product">
+            <div class="product-info">
+              <img src="assets/serum.jpg" alt="Serum trị mụn" class="product-img" />
+              <div>
+                <p class="product-name">Serum trị mụn</p>
+                <p class="product-detail">50ml</p>
+              </div>
+            </div>
+          </td>
+          <td class="col-status">
+            <span class="status-badge in-stock">Còn hàng</span>
+          </td>
+          <td class="col-price">430.000 đ</td>
+          <td class="col-action">
+            <button class="btn-add-cart">Thêm vào giỏ hàng</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-product">
+            <div class="product-info">
+              <img src="assets/bioderma.jpg" alt="Bộ làm sạch da" class="product-img" />
+              <div>
+                <p class="product-name">Bộ làm sạch da</p>
+                <p class="product-detail">Bộ 3 sản phẩm</p>
+              </div>
+            </div>
+          </td>
+          <td class="col-status">
+            <span class="status-badge out-of-stock">Tạm hết hàng</span>
+          </td>
+          <td class="col-price">600.000 đ</td>
+          <td class="col-action">
+            <button class="btn-add-cart">Thêm vào giỏ hàng</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+</div>
