@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -73,11 +73,15 @@ export class ProductDetail implements OnInit {
     { id: 4, name: 'TÊN SẢN PHẨM', price: 22000, oldPrice: 54000, discount: '-51%', rating: 5.0, sold: 12340 }
   ];
 
+  private readonly platformId = inject(PLATFORM_ID);
+
   constructor() {}
 
   ngOnInit(): void {
     // Scroll lên đầu trang khi vào chi tiết sản phẩm
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
   // Tăng số lượng

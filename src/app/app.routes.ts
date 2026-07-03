@@ -14,6 +14,11 @@ import { AiConsult } from './pages/ai-consult/ai-consult';
 import { Stores } from './pages/stores/stores';
 import { CartEmpty } from './pages/cart_empty/cart_empty';
 import { WarrantyComponent } from './pages/warranty/warranty';
+import { Account } from './pages/account/account';
+import { Orders } from './pages/orders/orders';
+import { Wishlist } from './pages/wishlist/wishlist';
+import { Voucher } from './pages/voucher/voucher';
+import { ServicesBooking } from './pages/services-booking/services-booking';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -21,6 +26,7 @@ export const routes: Routes = [
   { path: 'cart_empty', component: CartEmpty },
   { path: 'products', component: Products },
   { path: 'product/:id', component: ProductDetail },
+  { path: 'product-detail', component: ProductDetail },
   { path: 'services', component: Services },
   { path: 'cart', component: Cart },
   { path: 'checkout', component: Checkout },
@@ -30,5 +36,10 @@ export const routes: Routes = [
   { path: 'ai-consult', component: AiConsult },
   { path: 'stores', component: Stores },
   { path: 'warranty', component: WarrantyComponent },
-  { path: '**', redirectTo: '' } 
+  { path: 'account', component: Account },
+  { path: 'orders', component: Orders },
+  { path: 'wishlist', component: Wishlist },
+  { path: 'voucher', component: Voucher },
+  { path: 'services-booking', component: ServicesBooking },
+  { path: '**', redirectTo: '' }
 ];

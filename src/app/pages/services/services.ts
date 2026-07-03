@@ -1,6 +1,6 @@
 // services.ts
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 interface ServiceItem {
   id: number;
@@ -102,11 +102,15 @@ export class Services implements OnInit {
     }
   ];
 
+  private readonly platformId = inject(PLATFORM_ID);
+
   constructor() {}
 
   ngOnInit(): void {
     // Khởi tạo scroll lên đầu trang khi load component
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
   /**
