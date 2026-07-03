@@ -9,11 +9,11 @@ import { Cart } from './pages/cart/cart';
 import { Checkout } from './pages/checkout/checkout';
 import { Profile } from './pages/profile/profile';
 import { Blog } from './pages/blog/blog';
-import { Policies } from './pages/policies/policies';
+import { PoliciesComponent } from './pages/policies/policies';
 import { AiConsult } from './pages/ai-consult/ai-consult';
 import { Stores } from './pages/stores/stores';
-import { Warranty } from './pages/warranty/warranty';
 import { CartEmpty } from './pages/cart_empty/cart_empty';
+import { WarrantyComponent } from './pages/warranty/warranty';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -26,9 +26,9 @@ export const routes: Routes = [
   { path: 'checkout', component: Checkout },
   { path: 'profile', component: Profile },
   { path: 'blog', component: Blog },
-  { path: 'policies', component: Policies },
+  { path: 'policies', component: PoliciesComponent, },
   { path: 'ai-consult', component: AiConsult },
   { path: 'stores', component: Stores },
-  { path: 'warranty', component: Warranty },
+  { path: 'warranty', component: WarrantyComponent },
   { path: '**', redirectTo: '' } 
 ];

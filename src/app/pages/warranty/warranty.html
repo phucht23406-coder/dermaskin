@@ -1,1 +1,124 @@
-<p>warranty works!</p>
+<div class="warranty-container">
+  
+  <div class="breadcrumb">
+    <span>Trang chủ</span>
+    <svg width="6" height="10" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 10px;">
+      <path d="M0 -2.38419e-07L4.08333 4.08333L0 8.16667" stroke="#999999" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="current">Bảo hành</span>
+  </div>
+
+  <div class="tabs-menu">
+    <div class="tab-item" [class.active]="currentTab === 'lookup'" (click)="changeTab('lookup')">Tra cứu bảo hành</div>
+    <div class="tab-item" [class.active]="currentTab === 'activate'" (click)="changeTab('activate')">Yêu cầu kích hoạt</div>
+    <div class="tab-item" [class.active]="currentTab === 'request'" (click)="changeTab('request')">Yêu cầu bảo hành</div>
+    <div class="tab-item" [class.active]="currentTab === 'policy'" (click)="changeTab('policy')">Chính sách bảo hành</div>
+  </div>
+
+  <div class="tab-content">
+    
+    <div *ngIf="isSubmitted" class="success-screen">
+      <h2 class="success-title">Gửi yêu cầu thành công</h2>
+      <button class="back-btn" (click)="isSubmitted = false">Thông tin sản phẩm >></button>
+    </div>
+
+    <div *ngIf="!isSubmitted" [ngSwitch]="currentTab">
+      
+      <div *ngSwitchCase="'lookup'" class="form-container">
+        <div class="form-group">
+          <label>Nhập email hoặc số điện thoại</label>
+          <input type="text" placeholder="Nhập email hoặc số điện thoại">
+        </div>
+        <div class="form-group">
+          <label>Mã đơn hàng</label>
+          <input type="text" placeholder="Nhập mã đơn hàng">
+        </div>
+        <button class="submit-btn" (click)="submitRequest()">Tra cứu bảo hành</button>
+      </div>
+
+      <div *ngSwitchCase="'activate'" class="form-container">
+        <div class="form-group">
+          <label>Nhập email hoặc số điện thoại</label>
+          <input type="text" placeholder="Nhập email hoặc số điện thoại">
+        </div>
+        <div class="form-group">
+          <label>Sản phẩm cần kích hoạt bảo hành <span>*</span></label>
+          <select>
+            <option value="" disabled selected>Vui lòng chọn sản phẩm</option>
+            <option value="1">Sản phẩm Dermaskin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Số Serial/ Mã đơn hàng <span>*</span></label>
+          <input type="text" placeholder="Nhập mã đơn hàng, mỗi giá trị cách nhau dấu phẩy (,)">
+          <p class="note-text">Lưu ý: Nếu quý khách mua nhiều hơn 1 sản phẩm, vui lòng nhập đầy đủ số serial number tương ứng</p>
+        </div>
+        <div class="form-group">
+          <label>Ghi chú</label>
+          <textarea rows="4" placeholder="Vui lòng mô tả nội dung ngắn gọn"></textarea>
+        </div>
+        <div class="agreement">
+          Nhấn “Gửi yêu cầu” đồng nghĩa việc bạn đồng ý <a (click)="changeTab('policy')">Chính sách bảo hành</a> của DERMASKIN
+        </div>
+        <button class="submit-btn" (click)="submitRequest()">Gửi yêu cầu</button>
+      </div>
+
+      <div *ngSwitchCase="'request'" class="form-container">
+        <div class="form-group">
+          <label>Số điện thoại mua hàng <span>*</span></label>
+          <input type="text" placeholder="Nhập số điện thoại mua hàng">
+        </div>
+        <div class="form-group">
+          <label>Sản phẩm cần yêu cầu bảo hành <span>*</span></label>
+          <select>
+            <option value="" disabled selected>Vui lòng chọn sản phẩm</option>
+            <option value="1">Sản phẩm Dermaskin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Lý do yêu cầu bảo hành</label>
+          <textarea rows="4" placeholder="Vui lòng mô tả nội dung ngắn gọn"></textarea>
+        </div>
+        <div class="agreement">
+          Nhấn “Gửi yêu cầu” đồng nghĩa việc bạn đồng ý <a (click)="changeTab('policy')">Chính sách bảo hành</a> của DERMASKIN
+        </div>
+        <button class="submit-btn" (click)="submitRequest()">Gửi yêu cầu</button>
+      </div>
+
+      <div *ngSwitchCase="'policy'" class="policy-article">
+        <h1 class="title">Chính sách bảo hành</h1>
+        <p class="intro">DERMASKIN cam kết bảo vệ quyền lợi của khách hàng và đảm bảo chất lượng cho mọi sản phẩm được bán ra. Chi tiết chính sách như sau:</p>
+
+        <h2 class="section-title">1. Điều kiện áp dụng bảo hành</h2>
+        <div class="section-content">
+          <ul>
+            <li>Sản phẩm hết hạn hoặc có dấu hiệu ảnh hưởng đến chất lượng trước khi đến tay khách hàng.</li>
+            <li>Thời gian áp dụng bảo hành và hỗ trợ đổi trả là <strong>30 ngày</strong> kể từ ngày khách hàng nhận hàng.</li>
+          </ul>
+        </div>
+
+        <h2 class="section-title">2. Các trường hợp từ chối bảo hành</h2>
+        <div class="section-content">
+          <ul>
+            <li>Không cung cấp được thông tin mua hàng hợp lệ.</li>
+            <li>Sản phẩm đã quá thời hạn bảo hành hoặc đổi trả.</li>
+            <li>Sản phẩm đã qua sử dụng, bị bóc seal hoặc thay đổi hiện trạng ban đầu.</li>
+            <li>Hư hỏng phát sinh do bảo quản hoặc sử dụng không đúng hướng dẫn.</li>
+            <li>Sản phẩm bị tác động bởi các yếu tố bên ngoài như va đập, rơi vỡ.</li>
+          </ul>
+        </div>
+
+        <h2 class="section-title">3. Quy trình bảo hành</h2>
+        <div class="section-content">
+          <ul>
+            <li><strong>Bước 1:</strong> Khách hàng liên hệ với bộ phận CSKH của DERMASKIN qua Hotline 0797058657.</li>
+            <li><strong>Bước 2:</strong> Cung cấp hình ảnh/video rõ nét thể hiện tình trạng lỗi.</li>
+            <li><strong>Bước 3:</strong> Đóng gói sản phẩm và gửi về trung tâm của DERMASKIN.</li>
+            <li><strong>Bước 4:</strong> DERMASKIN tiến hành kiểm tra và gửi sản phẩm đổi mới hoặc hoàn tiền.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
