@@ -74,5 +74,54 @@
       </form>
     </div>
   </main>
+<ul class="profile-menu">
+  <li (click)="selectTab('profile')" [class.active]="currentTab === 'profile'">Thông tin tài khoản</li>
+  <li (click)="selectTab('orders')" [class.active]="currentTab === 'orders'">Đơn hàng của tôi</li>
+  <li (click)="selectTab('favorites')" [class.active]="currentTab === 'favorites'">Sản phẩm yêu thích</li>
+  <li (click)="selectTab('vouchers')" [class.active]="currentTab === 'vouchers'">Voucher của tôi</li>
+  <li (click)="selectTab('services')" [class.active]="currentTab === 'services'">Lịch hẹn dịch vụ</li>
+  <li (click)="selectTab('logout')">Đăng xuất</li>
+</ul>
 
+<div class="profile-content">
+
+  <div *ngIf="currentTab === 'profile'">
+    </div>
+
+  <div *ngIf="currentTab === 'orders'">
+    <div class="sub-tabs">
+      <span (click)="selectOrderTab('all')" [class.active]="currentOrderTab === 'all'">Tất cả</span>
+      <span (click)="selectOrderTab('new')" [class.active]="currentOrderTab === 'new'">Mới đặt</span>
+      <span (click)="selectOrderTab('processing')" [class.active]="currentOrderTab === 'processing'">Đang xử lý</span>
+      <span (click)="selectOrderTab('shipping')" [class.active]="currentOrderTab === 'shipping'">Đang vận chuyển</span>
+      <span (click)="selectOrderTab('success')" [class.active]="currentOrderTab === 'success'">Thành công</span>
+    </div>
+
+    <div class="order-list">
+      <div *ngIf="currentOrderTab === 'all' || currentOrderTab === 'new'">
+        </div>
+
+      <div *ngIf="currentOrderTab === 'all' || currentOrderTab === 'shipping'">
+        </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentTab === 'favorites'">
+    </div>
+
+  <div *ngIf="currentTab === 'vouchers'">
+    </div>
+
+  <div *ngIf="currentTab === 'services'">
+    </div>
+
+</div>
+
+<div class="logout-modal" *ngIf="showLogoutModal">
+  <div class="modal-content">
+    <p>Đăng xuất khỏi tài khoản của bạn?</p>
+    <button (click)="confirmLogout()">Đăng xuất</button>
+    <button (click)="closeLogoutModal()">Hủy</button>
+  </div>
+</div>
 </div>
