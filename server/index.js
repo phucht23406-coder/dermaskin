@@ -8,10 +8,10 @@ const app = express();
 app.use(express.json());
 
 // --- 1. KẾT NỐI MONGODB LOCAL ---
-mongoose.connect('mongodb://localhost:27017/my_project', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('Đã kết nối tới MongoDB Local thành công!'))
+mongoose.connect('mongodb://localhost:27017/my_project') //, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// }).then(() => console.log('Đã kết nối tới MongoDB Local thành công!'))
   .catch(err => console.error('Lỗi kết nối MongoDB:', err));
 
 // --- 2. TẠO SCHEMA & MODEL ---
@@ -119,6 +119,10 @@ app.post('/api/auth/reset-password', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server', error });
   }
 });
+
+// Route phân tích da
+const skinAlgoRoute = require('./routes/skin-algo');
+app.use('/api/skin-algo', skinAlgoRoute);
 
 const PORT = 5000;
 app.listen(PORT, () => {
