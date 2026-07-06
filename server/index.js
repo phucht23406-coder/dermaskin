@@ -8,8 +8,10 @@ const app = express();
 app.use(express.json());
 
 // --- 1. KẾT NỐI MONGODB LOCAL ---
-mongoose.connect('mongodb://localhost:27017/my_project')
-  .then(() => console.log('Đã kết nối tới MongoDB Local thành công!'))
+mongoose.connect('mongodb://localhost:27017/my_project') //, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// }).then(() => console.log('Đã kết nối tới MongoDB Local thành công!'))
   .catch(err => console.error('Lỗi kết nối MongoDB:', err));
 
 // --- 2. TẠO SCHEMA & MODEL ---
@@ -149,72 +151,9 @@ app.post('/api/auth/reset-password', async (req, res) => {
   }
 });
 
-// --- 4. API ĐẶT LỊCH HẸN DỊCH VỤ ---
-
-// API: Nhận thông tin từ Form Đặt lịch hẹn -> Lưu vào bảng appointment
-app.post('/api/appointments', async (req, res) => {
-  try {
-    const { fullName, phone, email, serviceName, appointmentDate, appointmentTime, note } = req.body;
-
-    // Kiểm tra các trường bắt buộc
-    if (!fullName || !phone || !serviceName || !appointmentDate || !appointmentTime) {
-      return res.status(400).json({ message: 'Vui lòng nhập đầy đủ thông tin bắt buộc!' });
-    }
-
-    const newAppointment = new Appointment({
-      fullName, phone, email, serviceName, appointmentDate, appointmentTime, note
-    });
-    await newAppointment.save();
-
-    res.status(201).json({ message: 'Đặt lịch hẹn thành công!', data: newAppointment });
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi server', error });
-  }
-});
-
-// --- 5. API BẢO HÀNH ---
-
-// API: Nhận thông tin từ Form yêu cầu bảo hành -> Lưu vào bảng warranty + tự sinh mã bảo hành
-app.post('/api/warranties', async (req, res) => {
-  try {
-    const { fullName, phone, email, productName, reason } = req.body;
-
-    if (!fullName || !phone || !productName) {
-      return res.status(400).json({ message: 'Vui lòng nhập đầy đủ thông tin bắt buộc!' });
-    }
-
-    const warrantyCode = generateWarrantyCode();
-
-    const newWarranty = new Warranty({
-      warrantyCode, fullName, phone, email, productName, reason
-    });
-    await newWarranty.save();
-
-    res.status(201).json({
-      message: 'Gửi yêu cầu bảo hành thành công!',
-      warrantyCode: newWarranty.warrantyCode,
-      data: newWarranty
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi server', error });
-  }
-});
-
-// API: Nhận mã bảo hành khách nhập -> Tìm kiếm và trả về thông tin tra cứu bảo hành
-app.get('/api/warranties/:code', async (req, res) => {
-  try {
-    const { code } = req.params;
-    const warranty = await Warranty.findOne({ warrantyCode: code });
-
-    if (!warranty) {
-      return res.status(404).json({ message: 'Không tìm thấy thông tin bảo hành với mã này!' });
-    }
-
-    res.status(200).json({ message: 'Tìm thấy thông tin bảo hành!', data: warranty });
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi server', error });
-  }
-});
+// Route phân tích da
+const skinAlgoRoute = require('./routes/skin-algo');
+app.use('/api/skin-algo', skinAlgoRoute);
 
 const PORT = 5000;
 app.listen(PORT, () => {
