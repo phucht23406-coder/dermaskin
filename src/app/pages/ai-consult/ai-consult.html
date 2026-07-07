@@ -101,13 +101,27 @@
         <div class="result-section">
           <div class="result-title">📋 Đánh giá sơ bộ</div>
           <div class="result-box">
-            <p><span class="check">✓</span> Loại da: Hỗn hợp thiên dầu</p>
-            <p><span class="check">✓</span> Tình trạng da: Mụn viêm nhẹ, có dấu hiệu thiếu ẩm</p>
-            <p><span class="check">✓</span> Vấn đề chính: Mụn ẩn, mụn viêm vùng má, lỗ chân lông</p>
+            <p><span class="check">✓</span> Loại da: <strong>{{ loaiDa }}</strong></p>
+            <p *ngFor="let concern of skinConcerns">
+              <span class="check">✓</span> {{ concern }}
+            </p>
           </div>
         </div>
 
-        <div class="result-section">
+        <div class="result-section" *ngIf="routine.length > 0">
+          <div class="result-title">💡 Sản phẩm gợi ý</div>
+          <div class="routine-list">
+            <div class="routine-item" *ngFor="let item of routine">
+              <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="routine-img" />
+              <div class="routine-info">
+                <p class="routine-name">{{ item.name }}</p>
+                <p class="routine-price">{{ item.price | number }}đ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-section" *ngIf="routine.length === 0">
           <div class="result-title">💡 Gợi ý routine phù hợp</div>
           <div class="routine-box">
             <div class="routine-col">

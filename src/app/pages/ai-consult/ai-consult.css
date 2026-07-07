@@ -248,3 +248,33 @@
 .routine-heading { font-weight: 700; margin-bottom: 6px; }
 .routine-col ol { padding-left: 18px; margin: 0; }
 .routine-col li { margin-bottom: 3px; }
+.routine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.routine-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #ffeef5;
+  border-radius: 8px;
+}
+.routine-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #eee;
+}
+.routine-name {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+.routine-price {
+  font-size: 12px;
+  color: #e8627b;
+  margin: 2px 0 0;
+}
