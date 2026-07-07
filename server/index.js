@@ -155,7 +155,12 @@ app.post('/api/auth/reset-password', async (req, res) => {
 const skinAlgoRoute = require('./routes/skin-algo');
 app.use('/api/skin-algo', skinAlgoRoute);
 
+// Route đơn hàng (lịch sử đơn hàng, phân loại theo trạng thái)
+const ordersRoute = require('./routes/orders');
+app.use('/api/orders', ordersRoute);
+
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Backend Server đang chạy tại: http://localhost:${PORT}`);
 });
+
