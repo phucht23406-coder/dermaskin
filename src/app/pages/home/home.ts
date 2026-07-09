@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
-import { Product, ServiceItem } from '../../shared/mocks/product.mock'; // Import interface chuẩn từ file mock
+import { Product, ServiceItem } from '../../shared/mocks/product.mock'; 
 
 export interface Brand {
   id: number;
@@ -24,17 +24,17 @@ export class Home implements OnInit, OnDestroy {
   seconds = 35;
   private timerInterval: ReturnType<typeof setInterval> | null = null;
 
-  // Banner slides dots
+  // Banner
   totalSlides = 3;
   currentSlide = 0;
 
-  // Khai báo các mảng chứa dữ liệu động (bắt đầu bằng mảng rỗng)
+  
   flashSaleProducts: Product[] = [];
   bestSellers: Product[] = [];
   suggestedProducts: Product[] = [];
-  clinicServices: ServiceItem[] = []; // Đổi kiểu dữ liệu thành ServiceItem riêng biệt cho dịch vụ
+  clinicServices: ServiceItem[] = []; 
 
-  // Brand images (Giữ nguyên hoặc chuyển vào mock sau nếu muốn)
+  // Brand images 
   brands: Brand[] = [
     {
       id: 1,
@@ -63,7 +63,7 @@ export class Home implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startCountdown();
-    this.loadDataFromService(); // Gọi hàm lấy dữ liệu khi trang chủ vừa tải xong
+    this.loadDataFromService(); 
   }
 
   ngOnDestroy(): void {
@@ -72,24 +72,22 @@ export class Home implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Bước 2: Hàm thực hiện lấy dữ liệu tương ứng từ Service đổ vào các nhóm trên Trang Chủ
-   */
+  
   private loadDataFromService(): void {
-    // 1. Lấy sản phẩm thuộc nhóm ưu đãi để làm Flash Sale
+    
     this.flashSaleProducts = this.productService.getDiscountedProducts();
 
-    // 2. Lấy sản phẩm thuộc nhóm bán chạy nhất
+    
     this.bestSellers = this.productService.getBestSellerProducts();
 
-    // 3. Trang chủ tổng hợp lấy toàn bộ sản phẩm để đưa vào mục gợi ý hôm nay
+   
     this.suggestedProducts = this.productService.getAllProducts();
 
-    // 4. Lấy danh sách dịch vụ spa / clinic riêng biệt hoàn toàn với sản phẩm
+    
    this.clinicServices = this.productService.getClinicServices();
   }
 
-  // Countdown Timer Getters
+  
   get paddedHours(): string {
     return String(this.hours).padStart(2, '0');
   }
