@@ -1,6 +1,4 @@
-/* ===========================
-   CSS CUSTOM PROPERTIES
-   =========================== */
+
 :host {
   --color-primary: #e8627b;
   --color-primary-light: #ffcee1;
@@ -23,9 +21,7 @@
   background-color: var(--color-bg);
 }
 
-/* ===========================
-   LAYOUT UTILITIES
-   =========================== */
+
 .section {
   padding: 48px 0;
 }
@@ -71,9 +67,7 @@
   color: var(--color-primary);
 }
 
-/* ===========================
-   HERO BANNER
-   =========================== */
+
 .hero-banner {
   position: relative;
   width: 100%;
@@ -127,9 +121,7 @@
   border-color: var(--color-primary);
 }
 
-/* ===========================
-   FLASH SALE SECTION
-   =========================== */
+
 .flash-sale {
   background: rgba(255, 206, 225, 0.8);
   border-radius: var(--radius-md);
@@ -178,18 +170,14 @@
   color: var(--color-white);
 }
 
-/* ===========================
-   PRODUCT GRID
-   =========================== */
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
-/* ===========================
-   PRODUCT CARD
-   =========================== */
+
 .product-card {
   background: var(--color-white);
   border-radius: var(--radius-md);
@@ -347,9 +335,7 @@
   color: var(--color-black);
 }
 
-/* ===========================
-   BRANDS SECTION
-   =========================== */
+
 .brands__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -376,9 +362,7 @@
   display: block;
 }
 
-/* ===========================
-   LOAD MORE BUTTON
-   =========================== */
+
 .suggested__load-more {
   display: flex;
   justify-content: center;
@@ -411,9 +395,7 @@
   color: var(--color-white);
 }
 
-/* ===========================
-   RESPONSIVE BREAKPOINTS
-   =========================== */
+
 @media (max-width: 1200px) {
   .product-grid,
   .brands__grid {
@@ -502,9 +484,7 @@
   }
 }
 
-/* ===========================
-   REDUCED MOTION
-   =========================== */
+
 @media (prefers-reduced-motion: reduce) {
   .product-card,
   .brand-card,
