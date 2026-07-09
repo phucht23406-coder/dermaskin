@@ -1,1218 +1,304 @@
-/* ============================================================
-   services.css — DermaSkin Services Page
-   Fully responsive: mobile → tablet → desktop
-   ============================================================ */
-
-/* ── Google Fonts Import ── */
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Lexend+Exa:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-/* ── CSS Custom Properties ── */
-:root {
-  --pink-primary:   #E8627B;
-  --pink-light:     #FFEEF5;
-  --pink-medium:    #FFCEE1;
-  --black:          #000000;
-  --gray-dark:      #333333;
-  --gray-mid:       #666666;
-  --gray-light:     #E6E6E6;
-  --white:          #FFFFFF;
-  --yellow:         #FFCC00;
-  --border-radius:  10px;
-  --card-radius:    20px;
-  --section-gap:    60px;
-  --container-max:  1400px;
-  --font-deca:      'Lexend Deca', sans-serif;
-  --font-exa:       'Lexend Exa', sans-serif;
-  --font-inter:     'Inter', sans-serif;
-}
-
-/* ── Reset & Base ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-deca);
-  color: var(--gray-dark);
-  background: var(--white);
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ── Page Wrapper ── */
 .services-page {
-  width: 100%;
-  overflow-x: hidden;
+  font-family: 'Lexend Deca', sans-serif;
+  background-color: #FFF7F7;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-/* ── Shared: Section Title ── */
-.section-title-pink {
-  font-family: var(--font-deca);
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 700;
-  color: var(--pink-primary);
-  line-height: 1.4;
+
+.services-hero-banner {
+  background: #FFCEE1;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+.services-hero-banner h2 {
+  font-family: 'Lexend Exa', sans-serif;
+  color: #000;
+  margin-bottom: 10px;
 }
 
-/* ── Shared: Container ── */
-.product-detail-container,
-.booking-container,
-.branches-container,
-.related-products-header,
-.related-products-grid {
-  max-width: var(--container-max);
+
+.services-main-layout {
+  display: flex;
+  gap: 30px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 40px;
 }
 
-/* ============================================================
-   SECTION 1 — PRODUCT DETAIL
-   ============================================================ */
-.product-detail-section {
-  padding: 48px 0 var(--section-gap);
+@media (max-width: 991px) {
+  .services-main-layout {
+    flex-direction: column;
+  }
 }
 
-.product-detail-container {
-  display: flex;
-  gap: 64px;
-  align-items: flex-start;
-}
 
-/* ── Left: Images ── */
-.product-images {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  flex: 0 0 45%;
-  min-width: 0;
+.sidebar-filter {
+  flex: 0 0 280px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  height: fit-content;
 }
-
-.product-main-image {
-  width: 100%;
-  border-radius: var(--card-radius);
-  overflow: hidden;
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
 }
-
-.main-placeholder {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: #D9D9D9;
-  border-radius: var(--card-radius);
-}
-
-.product-thumbnails {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.thumb-nav {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 1px solid var(--gray-light);
-  transition: background 0.2s;
-}
-
-.thumb-nav:hover {
-  background: var(--pink-light);
-}
-
-.thumb-list {
-  display: flex;
-  gap: 12px;
-  flex: 1;
-  overflow: hidden;
-}
-
-.thumb-item {
-  flex: 1;
+.category-list li {
+  padding: 12px 8px;
+  border-bottom: 1px solid #f5f5f5;
   cursor: pointer;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+}
+.category-list li.active, .category-list li:hover {
+  color: #E8627B;
+  font-weight: 600;
 }
 
-.thumb-item.active {
-  border-color: var(--black);
+.price-inputs {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
 }
-
-.thumb-placeholder {
+.price-inputs input {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #D9D9D9;
+  padding: 8px;
+  border: 1px solid #ececec;
   border-radius: 6px;
 }
-
-/* ── Right: Details ── */
-.product-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 0;
-}
-
-.product-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.product-name-block {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.product-name {
-  font-family: var(--font-deca);
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 700;
-  color: var(--gray-dark);
-  line-height: 1.4;
-}
-
-.product-rating-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.rating-score {
-  font-family: var(--font-exa);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--black);
-}
-
-.stars {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.divider-line {
-  color: var(--black);
-  font-size: 16px;
-  line-height: 1;
-}
-
-.review-count {
-  font-family: var(--font-deca);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--gray-dark);
-}
-
-.wishlist-btn {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background 0.2s;
-}
-
-.wishlist-btn:hover {
-  background: var(--pink-light);
-}
-
-.detail-divider {
-  height: 1px;
-  background: var(--gray-light);
+.btn-filter {
   width: 100%;
-}
-
-.product-price {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-}
-
-.price-current {
-  font-family: var(--font-exa);
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 600;
-  color: var(--gray-dark);
-}
-
-.price-original {
-  font-family: var(--font-exa);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--gray-dark);
-  text-decoration: line-through;
-  opacity: 0.6;
-}
-
-.product-actions {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.btn-book-appointment {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 220px;
-  height: 60px;
-  padding: 0 32px;
-  border-radius: 5px;
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
-  transition: opacity 0.2s, transform 0.15s;
-}
-
-.btn-book-appointment:hover {
-  opacity: 0.88;
-  transform: translateY(-1px);
-}
-
-/* ============================================================
-   SECTION 2 — SERVICE DESCRIPTION
-   ============================================================ */
-.service-description-section {
-  padding: 0 40px var(--section-gap);
-  max-width: var(--container-max);
-  margin: 0 auto;
-}
-
-.description-card {
-  border-radius: var(--border-radius);
-  border: 1px solid var(--black);
-  background: var(--white);
-  padding: 32px 36px 48px;
-  position: relative;
-}
-
-.description-content {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.description-title {
-  font-family: var(--font-deca);
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 700;
-  color: var(--pink-primary);
-  line-height: 55px;
-}
-
-.description-text {
-  font-family: var(--font-deca);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--gray-mid);
-  line-height: 1.75;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.description-text.expanded {
-  -webkit-line-clamp: unset;
-  overflow: visible;
-}
-
-.btn-see-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-  width: 250px;
-  height: 43px;
-  border-radius: var(--border-radius);
-  background: rgba(232, 98, 123, 0.80);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 16px;
-  font-weight: 500;
-  transition: opacity 0.2s;
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.btn-see-more:hover {
-  opacity: 0.85;
-}
-
-.btn-see-more svg {
-  transition: transform 0.3s ease;
-}
-
-.btn-see-more svg.rotated {
-  transform: rotate(180deg);
-}
-
-/* ============================================================
-   SECTION 3 — BOOKING FORM
-   ============================================================ */
-.booking-section {
-  background: var(--pink-light);
-  padding: var(--section-gap) 0;
-}
-
-.booking-container {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.booking-form {
-  background: var(--white);
-  border-radius: var(--card-radius);
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px 40px;
-  box-shadow: 0 4px 24px rgba(232, 98, 123, 0.08);
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group:last-child {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: flex-start;
-}
-
-.form-label {
-  font-family: var(--font-deca);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--gray-dark);
-}
-
-.form-input {
-  width: 100%;
-  height: 52px;
-  padding: 0 18px;
-  border: 1.5px solid var(--gray-light);
-  border-radius: var(--border-radius);
-  font-family: var(--font-deca);
-  font-size: 15px;
-  color: var(--gray-dark);
-  background: var(--white);
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.form-input:focus {
-  border-color: var(--pink-primary);
-  box-shadow: 0 0 0 3px rgba(232, 98, 123, 0.15);
-}
-
-.form-input::placeholder {
-  color: #AAAAAA;
-}
-
-.form-select {
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23E8627B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 44px;
+  background: #E8627B;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.form-submit-row {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-}
 
-.btn-dat-lich {
-  min-width: 220px;
-  height: 60px;
-  padding: 0 48px;
-  border-radius: var(--border-radius);
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  transition: opacity 0.2s, transform 0.15s;
-}
-
-.btn-dat-lich:hover {
-  opacity: 0.88;
-  transform: translateY(-2px);
-}
-
-/* ============================================================
-   SECTION 4 — RATINGS & REVIEWS
-   ============================================================ */
-.reviews-section {
-  padding: var(--section-gap) 40px;
-  max-width: var(--container-max);
-  margin: 0 auto;
-}
-
-.reviews-card {
-  border-radius: var(--border-radius);
-  border: 1px solid var(--black);
-  background: var(--white);
-  padding: 40px 60px 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.reviews-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ── Rating Summary ── */
-.rating-summary {
-  display: flex;
-  align-items: flex-start;
-  gap: 48px;
-  flex-wrap: wrap;
-}
-
-.avg-score-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.avg-score-number {
-  font-family: var(--font-deca);
-  font-size: clamp(64px, 8vw, 100px);
-  font-weight: 500;
-  color: var(--pink-primary);
-  line-height: 1;
-}
-
-.avg-stars {
-  display: flex;
-  gap: 2px;
-}
-
-.total-reviews-label {
-  font-family: var(--font-exa);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--pink-primary);
-}
-
-/* ── Rating Bars ── */
-.rating-breakdown {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.services-grid-content {
   flex: 1;
-  min-width: 280px;
 }
-
-.rating-bar-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.star-label {
-  font-family: var(--font-inter);
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--pink-primary);
-  width: 16px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.rating-bar-row svg {
-  flex-shrink: 0;
-}
-
-.bar-track {
-  flex: 1;
-  height: 14px;
-  border-radius: 10px;
-  background: var(--pink-light);
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  border-radius: 10px;
-  background: var(--pink-primary);
-  transition: width 0.4s ease;
-}
-
-.bar-label {
-  font-family: var(--font-exa);
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--pink-primary);
-  width: 110px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-/* ── Write Review CTA ── */
-.write-review-block {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.write-review-prompt {
-  font-family: var(--font-deca);
-  font-size: clamp(16px, 2vw, 24px);
-  font-weight: 500;
-  color: var(--pink-primary);
-  max-width: 320px;
-  line-height: 1.5;
-}
-
-.btn-write-review {
-  height: 56px;
-  padding: 0 28px;
-  border-radius: var(--border-radius);
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-exa);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.5;
-  transition: opacity 0.2s, transform 0.15s;
-}
-
-.btn-write-review:hover {
-  opacity: 0.88;
-  transform: translateY(-1px);
-}
-
-/* ── Individual Reviews ── */
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.review-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.review-top {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.reviewer-name {
-  font-family: var(--font-inter);
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--pink-primary);
-}
-
-.review-stars {
-  display: flex;
-  gap: 2px;
-}
-
-.review-date {
-  font-family: var(--font-inter);
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--pink-primary);
-}
-
-.review-divider {
-  height: 1px;
-  background: var(--gray-light);
-  margin: 8px 0;
-}
-
-.review-images {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.review-img-placeholder {
-  width: 73px;
-  height: 101px;
-  background: var(--pink-light);
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-
-/* ── Review Pagination ── */
-.review-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-.page-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-}
-
-.page-num {
-  font-family: var(--font-inter);
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--black);
-  cursor: pointer;
-  padding: 0 6px;
-  border-radius: 4px;
-  transition: background 0.15s;
-}
-
-.page-num.active,
-.page-num:hover {
-  background: var(--pink-light);
-  color: var(--pink-primary);
-}
-
-/* ============================================================
-   SECTION 5 — BRANCH LOCATIONS
-   ============================================================ */
-.branches-section {
-  background: var(--pink-light);
-  padding: var(--section-gap) 0;
-}
-
-.branches-container {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.branch-cards-wrapper {
-  overflow: hidden;
-}
-
-.branch-cards-grid {
+.services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
-.branch-card {
-  background: var(--white);
-  border-radius: var(--card-radius);
+.service-card {
+  background: #fff;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(232, 98, 123, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.branch-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 32px rgba(232, 98, 123, 0.18);
-}
-
-.branch-card-img-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #D9D9D9;
-}
-
-.branch-card-body {
-  padding: 20px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.branch-name {
-  font-family: var(--font-exa);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--pink-primary);
-  line-height: 1.4;
-}
-
-.branch-address,
-.branch-phone,
-.branch-province {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-family: var(--font-deca);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--gray-dark);
-  line-height: 1.5;
-}
-
-.branch-address svg,
-.branch-phone svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.branch-province {
-  font-size: 13px;
-  color: var(--gray-mid);
-}
-
-/* ── Branch Pagination ── */
-.branch-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.branch-nav-btn {
-  height: 40px;
-  padding: 0 20px;
-  border-radius: var(--border-radius);
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 16px;
-  font-weight: 700;
-  transition: opacity 0.2s;
-}
-
-.branch-nav-btn:hover:not(:disabled) {
-  opacity: 0.85;
-}
-
-.branch-nav-btn:disabled {
-  background: var(--gray-light);
-  color: #999;
-  cursor: not-allowed;
-}
-
-.branch-page-dots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.branch-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--gray-light);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.branch-dot.active {
-  background: var(--pink-primary);
-  transform: scale(1.3);
-}
-
-.branch-page-info {
-  font-family: var(--font-deca);
-  font-size: 14px;
-  color: var(--gray-mid);
-}
-
-/* ============================================================
-   SECTION 6 — RELATED PRODUCTS
-   ============================================================ */
-.related-products-section {
-  padding: var(--section-gap) 40px;
-  max-width: var(--container-max);
-  margin: 0 auto;
-}
-
-.related-products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  padding: 0;
-}
-
-.btn-view-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 38px;
-  padding: 0 24px;
-  border-radius: var(--border-radius);
-  border: 1.5px solid var(--pink-primary);
-  color: var(--pink-primary);
-  font-family: var(--font-exa);
-  font-size: 15px;
-  font-weight: 700;
-  transition: background 0.2s, color 0.2s;
-}
-
-.btn-view-more:hover {
-  background: var(--pink-primary);
-  color: var(--white);
-}
-
-.related-products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  padding: 0;
-}
-
-/* ── Product Card ── */
-.product-card {
-  display: block;
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  background: var(--white);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-}
-
-.product-card:hover {
+.service-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 32px rgba(232, 98, 123, 0.18);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.product-card-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.product-card-img {
+.card-image-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #D9D9D9;
-  overflow: hidden;
+  aspect-ratio: 1/1;
+  background-color: #D9D9D9;
 }
-
-.product-img-placeholder {
+.service-img {
   width: 100%;
   height: 100%;
-  background: #D9D9D9;
+  object-fit: cover;
 }
 
-.wishlist-card-btn {
+.favorite-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  transition: transform 0.15s;
+  cursor: pointer;
+  color: #808080;
 }
-
-.wishlist-card-btn:hover {
-  transform: scale(1.1);
+.favorite-btn.is-favorite {
+  color: #E8627B;
+  fill: #E8627B;
 }
 
 .discount-badge {
   position: absolute;
-  bottom: 8px;
+  bottom: 12px;
   left: 12px;
-  height: 25px;
-  padding: 0 8px;
-  border-radius: 20px;
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 13px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
 }
 
-.product-card-body {
-  padding: 14px 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
+.card-info {
+  padding: 16px;
 }
-
-.product-card-prices {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.card-price-current {
-  font-family: var(--font-deca);
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--black);
-}
-
-.card-price-original {
-  font-family: var(--font-deca);
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--gray-dark);
-  text-decoration: line-through;
-}
-
-.product-card-name {
-  font-family: var(--font-exa);
+.service-title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--pink-primary);
-  line-height: 1.3;
+  margin: 0 0 8px 0;
+  color: #333;
 }
-
-.product-card-desc {
-  font-family: var(--font-deca);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.4;
-}
-
-.product-card-footer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 8px;
-  flex-wrap: wrap;
-}
-
-.card-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-deca);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--white);
-  background: var(--pink-primary);
-  border-radius: 10px;
-  padding: 4px 10px;
-  height: 28px;
-}
-
-.card-sold {
-  font-family: var(--font-deca);
+.service-desc {
   font-size: 13px;
-  font-weight: 400;
-  color: var(--black);
-  flex: 1;
-  text-align: right;
+  color: #777;
+  height: 36px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 12px;
+}
+.card-footer-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price-current {
+  color: #E8627B;
+  font-weight: 700;
+  font-size: 16px;
+}
+.service-duration {
+  font-size: 12px;
+  color: #999;
 }
 
-.btn-buy-now {
-  height: 32px;
-  padding: 0 12px;
-  border-radius: 8px;
-  background: var(--pink-primary);
-  color: var(--white);
-  font-family: var(--font-deca);
-  font-size: 13px;
-  font-weight: 600;
-  transition: opacity 0.2s;
+
+.back-nav-container {
+  max-width: 1266px;
+  margin: 0 auto 20px auto;
+}
+.btn-back-to-list {
+  background: transparent;
+  border: 1px solid #E8627B;
+  color: #E8627B;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.btn-back-to-list:hover {
+  background: #E8627B;
+  color: #fff;
 }
 
-.btn-buy-now:hover {
-  opacity: 0.85;
+.product-detail-section {
+  display: flex;
+  flex-direction: column;
 }
-
-/* ============================================================
-   RESPONSIVE — TABLET  (max 1024px)
-   ============================================================ */
-@media (max-width: 1024px) {
-
+.product-detail-container {
+  display: flex;
+  width: 100%;
+  max-width: 1266px;
+  margin: 0 auto;
+  gap: 40px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+}
+@media (max-width: 991px) {
   .product-detail-container {
     flex-direction: column;
-    gap: 36px;
   }
+}
+.product-images {
+  flex: 1;
+}
+.main-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #ececec;
+  border-radius: 8px;
+}
+.detail-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-thumbnails .thumb-list {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+.thumb-placeholder {
+  width: 60px;
+  height: 60px;
+  background: #ddd;
+  border-radius: 4px;
+}
+.product-details {
+  flex: 1;
+}
+.product-name {
+  font-size: 28px;
+  margin-top: 0;
+}
+.product-price-box {
+  margin: 20px 0;
+}
+.detail-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #E8627B;
+}
+.action-buttons-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+.btn-book-now {
+  background: #E8627B;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-add-cart {
+  background: #fff;
+  border: 1px solid #000;
+  padding: 15px 30px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
+.price-original {
+  text-decoration: line-through !important;
+  color: #808080;
+}
+
+@media (max-width: 991px) {
+  .product-detail-section {
+    flex-direction: column-reverse !important;
+  }
   .product-images {
-    flex: none;
-    width: 100%;
-  }
-
-  .product-details {
-    width: 100%;
-  }
-
-  .related-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .branch-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .booking-form {
-    grid-template-columns: 1fr;
-  }
-
-  .form-group:last-child {
-    grid-column: auto;
-  }
-
-  .form-submit-row {
-    grid-column: auto;
-  }
-
-  .rating-summary {
-    flex-direction: column;
-    gap: 32px;
+    width: 100% !important;
+    flex: none !important;
   }
 }
 
-/* ============================================================
-   RESPONSIVE — MOBILE  (max 640px)
-   ============================================================ */
-@media (max-width: 640px) {
-
-  :root {
-    --section-gap: 36px;
-  }
-
-  .product-detail-container,
-  .booking-container,
-  .branches-container,
-  .reviews-section,
-  .related-products-section,
-  .service-description-section {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .product-thumbnails {
-    gap: 8px;
-  }
-
-  .thumb-list {
-    gap: 8px;
-  }
-
-  .product-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-book-appointment {
-    min-width: unset;
-    width: 100%;
-    font-size: 18px;
-  }
-
-  .description-card {
-    padding: 24px 20px 56px;
-  }
-
-  .booking-form {
-    padding: 24px 16px;
-  }
-
-  .reviews-card {
-    padding: 24px 16px 32px;
-  }
-
-  .branch-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .related-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .related-products-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .rating-summary {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .avg-score-block {
-    align-items: flex-start;
-  }
-
-  .write-review-block {
-    width: 100%;
-  }
-
-  .btn-write-review {
-    width: 100%;
-    font-size: 18px;
-  }
-
-  .branch-pagination {
-    gap: 10px;
-  }
-
-  .review-pagination {
-    gap: 8px;
-  }
+.price-original {
+  text-decoration: line-through !important;
+  color: #808080;
 }
