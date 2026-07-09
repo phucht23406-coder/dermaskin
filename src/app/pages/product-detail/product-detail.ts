@@ -1,98 +1,91 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router'; 
+import { ProductService } from '../../shared/services/product.service'; 
+import { CartService } from '../../shared/services/cart.service'; 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink], 
   templateUrl: './product-detail.html',
   styleUrls: ['./product-detail.css']
 })
 export class ProductDetail implements OnInit {
-  // Dữ liệu sản phẩm chính
-  product = {
-    name: 'Tên sản phẩm',
-    price: 230000,
-    oldPrice: 290000,
-    rating: 4.8,
-    totalReviews: 82,
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tellus dolor, congue nec mollis et, aliquet vitae sapien. Maecenas bibendum risus eget nisl dapibus, quis placerat quam interdum. Ut lobortis erat eget sem vulputate, eu maximus ipsum varius. Donec tempor, magna ac vestibulum euismod, quam felis scelerisque elit, vitae mattis sapien mi ac sem. Nam eleifend mauris lorem, a mollis sapien efficitur et. Donec elit nulla, ullamcorper a nulla sed, bibendum auctor nisi. Cras eleifend sagittis risus id ultrices. Donec quis mattis ipsum. Nullam egestas accumsan viverra. Donec facilisis urna nulla, at facilisis velit aliquet mollis. Fusce sit amet purus eget quam aliquet ultrices. Cras sed lacus sed arcu molestie vehicula et in ligula. Suspendisse quis odio lobortis, tristique sem ut, volutpat metus. Nullam porttitor volutpat lorem, ac ultrices tellus dictum vel. Sed maximus, tortor ac laoreet tincidunt, arcu mi porta massa, a luctus eros lacus bibendum lorem.`,
-  };
-
-  // Các lựa chọn phân loại
-  skinTypes: string[] = ['Da dầu', 'Da khô', 'Da nhạy cảm'];
-  capacities: string[] = ['50ml', '100ml', '200ml'];
-  
-  // Logic số lượng
-  quantity: number = 1;
-
-  // Ảnh thumbnails
-  productThumbnails = [1, 2, 3, 4]; // Placeholder cho 4 ảnh nhỏ
-
-  // Thống kê đánh giá
-  ratingStats = [
-    { stars: 5, count: 12, percent: 80 },
-    { stars: 4, count: 3, percent: 20 },
-    { stars: 3, count: 0, percent: 0 },
-    { stars: 2, count: 0, percent: 0 },
-    { stars: 1, count: 0, percent: 0 }
-  ];
-
-  // Danh sách bình luận mẫu
-  reviews = [
-    {
-      userName: "User's name",
-      rating: 5,
-      date: "2024-10-07 14:51",
-      variant: "hồng",
-      comment: "" // Trong thiết kế là các placeholder line
-    },
-    {
-      userName: "User's name",
-      rating: 5,
-      date: "2024-10-07 14:51",
-      variant: "hồng",
-      comment: ""
-    },
-    {
-      userName: "User's name",
-      rating: 5,
-      date: "2024-10-07 14:51",
-      variant: "hồng",
-      comment: ""
-    }
-  ];
-
-  // Sản phẩm liên quan
-  relatedProducts = [
-    { id: 1, name: 'TÊN SẢN PHẨM', price: 22000, oldPrice: 54000, discount: '-51%', rating: 5.0, sold: 12340 },
-    { id: 2, name: 'TÊN SẢN PHẨM', price: 22000, oldPrice: 54000, discount: '-51%', rating: 5.0, sold: 12340 },
-    { id: 3, name: 'TÊN SẢN PHẨM', price: 22000, oldPrice: 54000, discount: '-51%', rating: 5.0, sold: 12340 },
-    { id: 4, name: 'TÊN SẢN PHẨM', price: 22000, oldPrice: 54000, discount: '-51%', rating: 5.0, sold: 12340 }
-  ];
-
+  private route = inject(ActivatedRoute);
+  private router = inject(Router); 
+  private productService = inject(ProductService); 
+  private cartService = inject(CartService); 
   private readonly platformId = inject(PLATFORM_ID);
 
-  constructor() {}
+  product: any = null;
+  skinTypes: string[] = ['Da dầu', 'Da khô', 'Da nhạy cảm'];
+  capacities: string[] = ['50ml', '100ml', '200ml'];
+  quantity: number = 1;
+  productThumbnails = [1, 2, 3, 4];
+
+  selectedSkinType: string = this.skinTypes[0];
+  selectedCapacity: string = this.capacities[0];
+  
+  // Biến hứng danh sách sản phẩm liên quan lấy động từ ProductService
+  relatedProducts: any[] = []; 
 
   ngOnInit(): void {
-    // Scroll lên đầu trang khi vào chi tiết sản phẩm
-    if (isPlatformBrowser(this.platformId)) {
-      window.scrollTo(0, 0);
-    }
+    this.route.paramMap.subscribe(params => {
+      if (isPlatformBrowser(this.platformId)) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      const productIdStr = params.get('id');
+      if (productIdStr) {
+        const productId = Number(productIdStr);
+        const foundProduct = this.productService.getProductById(productId);
+        if (foundProduct) {
+          this.product = { ...foundProduct, image: foundProduct.image || foundProduct.imageUrl };
+          
+          // LẤY DỮ LIỆU ĐỘNG TỪ PRODUCT.SERVICE.TS:
+          const allProducts = this.productService.getAllProducts() || [];
+          this.relatedProducts = allProducts
+            .filter((p: any) => p.id !== productId) // Lọc bỏ sản phẩm đang xem chi tiết
+            .map((p: any) => ({
+              ...p,
+              image: p.image || p.imageUrl // Đảm bảo thuộc tính ảnh chạy mượt
+            }))
+            .slice(0, 4); // Giới hạn hiển thị tối đa 4 sản phẩm
+        } else {
+          this.product = null;
+          this.relatedProducts = [];
+        }
+      }
+    });
   }
 
-  // Tăng số lượng
-  increaseQty() {
-    this.quantity++;
+  changeQuantity(amount: number) {
+    const nextQty = this.quantity + amount;
+    if (nextQty >= 1) { this.quantity = nextQty; }
   }
 
-  // Giảm số lượng (không thấp hơn 1)
-  decreaseQty() {
-    if (this.quantity > 1) {
-      this.quantity--;
-    }
+  selectSkinType(type: string) { this.selectedSkinType = type; }
+  selectCapacity(capacity: string) { this.selectedCapacity = capacity; }
+
+  onAddToCart() {
+    if (!this.product) return;
+    const productToAdd = {
+      id: this.product.id,
+      name: this.product.name,
+      price: this.product.price,
+      image: this.product.image,
+      quantity: this.quantity,
+      selectedSkinType: this.selectedSkinType,
+      selectedCapacity: this.selectedCapacity
+    };
+    this.cartService.addToCart(productToAdd);
+    alert('Đã thêm sản phẩm vào giỏ hàng thành công!');
+  }
+
+  onBuyNow() {
+    if (!this.product) return;
+    this.onAddToCart();
+    this.router.navigate(['/cart']);
   }
 }
