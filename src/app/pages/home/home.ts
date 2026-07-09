@@ -34,7 +34,7 @@ export class Home implements OnInit, OnDestroy {
   suggestedProducts: any[] = [];
   clinicServices: any[] = []; 
 
-  // Brand images (Giữ nguyên cấu trúc của bạn)
+  // Brand images
   brands: Brand[] = [
     { id: 1, name: 'Estee Lauder', imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/cbe4d781b0a8f828694086d4001b97a22a36b566?width=260' },
     { id: 2, name: 'Kiehls', imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/8040a6b328a8df0b5037d04823565be093b1eb79?width=260' },
@@ -60,27 +60,27 @@ export class Home implements OnInit, OnDestroy {
     }
   }
 
-  // ĐỒNG BỘ DATA ĐỘNG TỪ PRODUCT.SERVICE.TS CỦA BẠN:
+
   loadDataFromService(): void {
     const rawProducts = this.productService.getAllProducts() || [];
 
-    // Fallback chuẩn hóa ảnh để dùng chung linh hoạt 'image' hoặc 'imageUrl'
+   
     const formattedProducts = rawProducts.map(p => ({
       ...p,
       image: p.image || p.imageUrl,
       imageUrl: p.image || p.imageUrl
     }));
 
-    // 1. Lấy sản phẩm có giảm giá (>0) làm Flash Sale
+    
     this.flashSaleProducts = formattedProducts.filter(p => p.discountPercent > 0);
 
-    // 2. Lấy danh sách sản phẩm bán chạy nhất
+    
     this.bestSellers = [...formattedProducts];
 
-    // 3. Lấy toàn bộ sản phẩm đưa vào mục Gợi ý hôm nay
+    
     this.suggestedProducts = [...formattedProducts];
 
-    // 4. Lấy danh sách dịch vụ Spa/Clinic động
+  
     this.clinicServices = (this.productService.getClinicServices() || []).map(s => ({
       ...s,
       image: s.imageUrl || s.image,
@@ -88,14 +88,14 @@ export class Home implements OnInit, OnDestroy {
     }));
   }
 
-  // CHUYỂN HƯỚNG SANG TRANG CHI TIẾT SẢN PHẨM CHUẨN XÁC:
+ 
   goToProductDetail(id: number): void {
     if (id) {
       this.router.navigate(['/product-detail', id.toString()]);
     }
   }
 
-  // Logic Carousel (Giữ nguyên của bạn)
+  // Logic Carousel 
   getSlideRange(): number[] {
     return Array.from({ length: this.totalSlides }, (_, i) => i);
   }
@@ -104,7 +104,7 @@ export class Home implements OnInit, OnDestroy {
     this.currentSlide = index;
   }
 
-  // Countdown Timer Getters (Giữ nguyên của bạn)
+  // Countdown Timer Getters 
   get paddedHours(): string { return String(this.hours).padStart(2, '0'); }
   get paddedMinutes(): string { return String(this.minutes).padStart(2, '0'); }
   get paddedSeconds(): string { return String(this.seconds).padStart(2, '0'); }
