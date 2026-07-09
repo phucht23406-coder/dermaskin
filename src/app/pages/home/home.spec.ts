@@ -1,10 +1,10 @@
-// home.spec.ts
+
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Home } from './home';
 import { ProductService } from '../../shared/services/product.service';
 
-// Bỏ qua kiểm tra kiểu nghiêm ngặt cho biến jasmine toàn cục
+
 declare const jasmine: any;
 
 describe('Home Component', () => {
@@ -13,7 +13,7 @@ describe('Home Component', () => {
   let mockProductService: any;
 
   beforeEach(async () => {
-    // Tạo Mock cho ProductService bám sát theo product.mock.ts mới của bạn
+   
     mockProductService = {
       getClinicServices: jasmine.createSpy('getClinicServices').and.returnValue([
         { id: 101, name: 'Dịch vụ 1', price: 100, duration: '60p', imageUrl: '', rating: 5 },
@@ -25,21 +25,21 @@ describe('Home Component', () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
-        provideRouter([]), // Thay thế RouterTestingModule lỗi thời
-        { provide: ProductService, useValue: mockProductService } // Cung cấp Mock Service cho Home Component
+        provideRouter([]),
+        { provide: ProductService, useValue: mockProductService } 
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Home);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Kích hoạt ngOnInit để nạp dữ liệu mảng dịch vụ
+    fixture.detectChanges(); 
   });
 
   afterEach(() => {
     fixture.destroy();
   });
 
-  // ─── Basic Initialization ──────────────────────────────────────────────────
+  // Basic Initialization 
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
@@ -49,7 +49,7 @@ describe('Home Component', () => {
     expect(() => fixture.detectChanges()).not.toThrow();
   });
 
-  // ─── Flash Sale Products ───────────────────────────────────────────────────
+  //Flash Sale Products ─
 
   it('should have 4 flash sale products', () => {
     expect(component.flashSaleProducts.length).toBe(4);
@@ -61,7 +61,7 @@ describe('Home Component', () => {
       expect(product.name).toBeTruthy();
       expect(product.price).toBeTruthy();
       expect(product.originalPrice).toBeTruthy();
-      expect(product.discountPercent || product.discount).toBeTruthy(); // Tương thích cả thuộc tính cũ/mới
+      expect(product.discountPercent || product.discount).toBeTruthy(); 
       expect(product.imageUrl).toBeTruthy();
       expect(product.rating).toBeGreaterThan(0);
     });
@@ -97,7 +97,7 @@ describe('Home Component', () => {
     expect(cards.length).toBe(4);
   });
 
-  // ─── Best Sellers ──────────────────────────────────────────────────────────
+  // Best Sellers
 
   it('should have 4 best seller products', () => {
     expect(component.bestSellers.length).toBe(4);
@@ -110,7 +110,7 @@ describe('Home Component', () => {
     expect(banChay).toBeTruthy();
   });
 
-  // ─── Clinic Services (ĐÃ CẬP NHẬT THEO MOCK SERVICES MỚI) ──────────────────
+  // Clinic Services 
 
   it('should have 3 clinic services', () => {
     // Đã sửa từ 4 thành 3 cho khớp chính xác với mock dữ liệu dịch vụ hiện tại
@@ -123,7 +123,7 @@ describe('Home Component', () => {
     expect(section).toBeTruthy();
   });
 
-  // ─── Suggested Products ───────────────────────────────────────────────────
+  // Suggested Products 
 
   it('should have 8 suggested products', () => {
     expect(component.suggestedProducts.length).toBe(8);
@@ -136,7 +136,7 @@ describe('Home Component', () => {
     expect(btn!.textContent?.trim()).toBe('Xem thêm');
   });
 
-  // ─── Countdown Timer ──────────────────────────────────────────────────────
+  // Countdown Timer 
 
   it('should initialise countdown at 23 hours 08 minutes 35 seconds', () => {
     expect(component.hours).toBe(23);
@@ -199,7 +199,7 @@ describe('Home Component', () => {
     expect(component.seconds).toBe(0);
   }));
 
-  // ─── Slide Dots ───────────────────────────────────────────────────────────
+  //  Slide Dots
 
   it('should initialise with 3 total slides and current slide 0', () => {
     expect(component.totalSlides).toBe(3);
@@ -223,7 +223,7 @@ describe('Home Component', () => {
     expect(dots.length).toBe(component.totalSlides);
   });
 
-  // ─── DOM Spot-checks ──────────────────────────────────────────────────────
+  // DOM Spot-checks 
 
   it('should render the Flash Sale! heading', () => {
     const compiled = fixture.nativeElement as HTMLElement;
