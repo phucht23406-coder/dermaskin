@@ -1,26 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  originalPrice: string;
-  discount: string;
-  rating: number;
-  sold: number;
-  imageUrl: string;
-}
+import { ProductService } from '../../shared/services/product.service';
+import { Product, ServiceItem } from '../../shared/mocks/product.mock'; // Import interface chuẩn từ file mock
 
 export interface Brand {
-  id: number;
-  name: string;
-  imageUrl: string;
-}
-
-export interface ClinicService {
   id: number;
   name: string;
   imageUrl: string;
@@ -44,290 +28,68 @@ export class Home implements OnInit, OnDestroy {
   totalSlides = 3;
   currentSlide = 0;
 
-  // Flash Sale Products
-  flashSaleProducts: Product[] = [
-    {
-      id: 1,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 2,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 3,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 4,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-  ];
+  // Khai báo các mảng chứa dữ liệu động (bắt đầu bằng mảng rỗng)
+  flashSaleProducts: Product[] = [];
+  bestSellers: Product[] = [];
+  suggestedProducts: Product[] = [];
+  clinicServices: ServiceItem[] = []; // Đổi kiểu dữ liệu thành ServiceItem riêng biệt cho dịch vụ
 
-  // Brand images
+  // Brand images (Giữ nguyên hoặc chuyển vào mock sau nếu muốn)
   brands: Brand[] = [
     {
       id: 1,
       name: 'Brand 1',
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/af43793074362ebf7a74649fa5df48d26b4e8e47?width=600',
+      imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/af43793074362ebf7a74649fa5df48d26b4e8e47?width=600',
     },
     {
       id: 2,
       name: 'Brand 2',
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/26907c663551703a2a9e05dc54117e96dc392584?width=600',
+      imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/26907c663551703a2a9e05dc54117e96dc392584?width=600',
     },
     {
       id: 3,
       name: 'Brand 3',
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/de6c542b043056805a459af3e5b79a52285e3dd5?width=600',
+      imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/de6c542b043056805a459af3e5b79a52285e3dd5?width=600',
     },
     {
       id: 4,
       name: 'Brand 4',
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/4ea7c665e51aa73420d66ca1d86194385f5eed65?width=600',
+      imageUrl: 'https://api.builder.io/api/v1/image/assets/TEMP/4ea7c665e51aa73420d66ca1d86194385f5eed65?width=600',
     },
   ];
 
-  // Best Sellers
-  bestSellers: Product[] = [
-    {
-      id: 1,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 2,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 3,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 4,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-  ];
+  // Inject ProductService vào constructor để làm việc với kho dữ liệu chung
+  constructor(private productService: ProductService) {}
 
-  // Clinic & Spa services
-  clinicServices: Product[] = [
-    {
-      id: 1,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 2,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 3,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 4,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-  ];
+  ngOnInit(): void {
+    this.startCountdown();
+    this.loadDataFromService(); // Gọi hàm lấy dữ liệu khi trang chủ vừa tải xong
+  }
 
-  // Suggested products (2 rows of 4)
-  suggestedProducts: Product[] = [
-    {
-      id: 1,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 2,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 3,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 4,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 5,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 6,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 7,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-    {
-      id: 8,
-      name: 'TÊN SẢN PHẨM',
-      description: 'Mô tả sản phẩm',
-      price: '22,000đ',
-      originalPrice: '54,000đ',
-      discount: '-51%',
-      rating: 5.0,
-      sold: 12340,
-      imageUrl:
-        'https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e?width=600',
-    },
-  ];
+  ngOnDestroy(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+  }
 
+  /**
+   * Bước 2: Hàm thực hiện lấy dữ liệu tương ứng từ Service đổ vào các nhóm trên Trang Chủ
+   */
+  private loadDataFromService(): void {
+    // 1. Lấy sản phẩm thuộc nhóm ưu đãi để làm Flash Sale
+    this.flashSaleProducts = this.productService.getDiscountedProducts();
+
+    // 2. Lấy sản phẩm thuộc nhóm bán chạy nhất
+    this.bestSellers = this.productService.getBestSellerProducts();
+
+    // 3. Trang chủ tổng hợp lấy toàn bộ sản phẩm để đưa vào mục gợi ý hôm nay
+    this.suggestedProducts = this.productService.getAllProducts();
+
+    // 4. Lấy danh sách dịch vụ spa / clinic riêng biệt hoàn toàn với sản phẩm
+   this.clinicServices = this.productService.getClinicServices();
+  }
+
+  // Countdown Timer Getters
   get paddedHours(): string {
     return String(this.hours).padStart(2, '0');
   }
@@ -338,16 +100,6 @@ export class Home implements OnInit, OnDestroy {
 
   get paddedSeconds(): string {
     return String(this.seconds).padStart(2, '0');
-  }
-
-  ngOnInit(): void {
-    this.startCountdown();
-  }
-
-  ngOnDestroy(): void {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-    }
   }
 
   private startCountdown(): void {
