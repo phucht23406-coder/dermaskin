@@ -1,107 +1,82 @@
-<app-header></app-header>
 <main class="cart-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Trang chủ</a>
+      <span>/</span>
+      <span>Giỏ hàng</span>
+    </nav>
 
-    <div class="container">
+    @if (cartItems.length > 0) {
+      <div class="cart-wrapper">
+        <section class="cart-list">
+          <div class="cart-title">
+            <h2>Sản phẩm</h2>
+            <h2>Giá tiền</h2>
+            <h2>Thành tiền</h2>
+          </div>
 
-        <!-- Breadcrumb -->
-
-        <nav class="breadcrumb">
-            <a href="#">Trang chủ</a>
-            <span>/</span>
-            <span>Giỏ hàng</span>
-        </nav>
-
-        <div class="cart-wrapper">
-
-            <!-- Danh sách sản phẩm -->
-
-            <section class="cart-list">
-
-                <div class="cart-title">
-
-                    <h2>Sản phẩm</h2>
-
-                    <h2>Giá tiền</h2>
-
-                    <h2>Thành tiền</h2>
-
+          @for (item of cartItems; track item.id + item.selectedSkinType + item.selectedCapacity) {
+            <div class="cart-item">
+              <div class="product">
+                <img [src]="item.image" [alt]="item.name" />
+                <div class="product-info">
+                  <h3>{{ item.name }}</h3>
+                  <p>{{ item.selectedSkinType }} | {{ item.selectedCapacity }}</p>
+                  <button class="remove-btn" (click)="removeItem(item)" style="background: none; border: none; color: #ff4d4f; cursor: pointer; font-size: 14px; margin-top: 5px; padding: 0;">
+                    Xóa khỏi giỏ
+                  </button>
                 </div>
+              </div>
 
-                <div class="cart-item">
-
-                    <div class="product">
-
-                        <img
-                            src="https://api.builder.io/api/v1/image/assets/TEMP/ff8bb16d3794ba9d5df8808ff8236df8692fde35?width=260"
-                            alt="Bộ làm sạch da"
-                        >
-
-                        <div class="product-info">
-
-                            <h3>Bộ làm sạch da</h3>
-
-                            <p>Bộ 3 sản phẩm</p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="price">
-
-                        <span class="money">
-                            600.000 đ
-                        </span>
-
-                        <span class="qty">
-                            SL: 1
-                        </span>
-
-                    </div>
-
-                    <div class="total">
-
-                        600.000 đ
-
-                    </div>
-
+              <div class="price">
+                <span class="money">{{ item.price | number }}đ</span>
+                <div class="qty-actions" style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                  <button (click)="changeQty(item, -1)" style="width: 24px; height: 24px; cursor: pointer;">-</button>
+                  <span class="qty">SL: {{ item.quantity }}</span>
+                  <button (click)="changeQty(item, 1)" style="width: 24px; height: 24px; cursor: pointer;">+</button>
                 </div>
+              </div>
 
-            </section>
-                        <!-- Hóa đơn -->
+              <div class="total">{{ (item.price * item.quantity) | number }}đ</div>
+            </div>
+          }
+        </section>
 
-            <aside class="cart-summary">
+        <aside class="cart-summary">
+          <h2>Hóa đơn của bạn</h2>
 
-                <h2>Hóa đơn của bạn</h2>
+          <div class="summary-item">
+            <span>Tạm tính:</span>
+            <span>{{ subTotal | number }}đ</span>
+          </div>
 
-                <div class="summary-item">
-                    <span>Tạm tính:</span>
-                    <span>1.000.000 đ</span>
-                </div>
+          <div class="summary-item">
+            <span>Giao hàng:</span>
+            <span>Miễn phí</span>
+          </div>
 
-                <div class="summary-item">
-                    <span>Giảm giá:</span>
-                    <span>0 đ</span>
-                </div>
+          <hr />
 
-                <hr>
+          <div class="summary-item total">
+            <span>Tổng cộng:</span>
+            <span>{{ totalAmount | number }}đ</span>
+          </div>
 
-                <div class="summary-item total">
-
-                    <span>Tổng cộng:</span>
-
-                    <span>1.000.000 đ</span>
-
-                </div>
-
-                <button class="checkout-btn">
-                    Đặt hàng
-                </button>
-
-            </aside>
-
-        </div>
-
-    </div>
-<app-footer></app-footer>
-
-
+          <button class="checkout-btn" routerLink="/checkout">
+            Đặt hàng
+          </button>
+        </aside>
+      </div>
+    } @else {
+      <div class="cart-content" style="max-width: 400px; margin: 40px auto; text-align: center; background: #fff; padding: 40px; border-radius: 20px;">
+        <img class="cart-image"
+          src="https://api.builder.io/api/v1/image/assets/TEMP/cc4e77c476a3f73e78f544b8472c945aaf98865e"
+          alt="Giỏ hàng trống" style="width: 200px; margin: 0 auto 20px;" />
+        <h2 class="empty-text" style="font-size: 20px; margin-bottom: 20px; color: #666;">Bạn chưa chọn sản phẩm nào</h2>
+        <button class="btn-shopping" routerLink="/" style="background: #e8627b; color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; cursor: pointer;">
+          Tiếp tục mua sắm
+        </button>
+      </div>
+    }
+  </div>
+</main>
