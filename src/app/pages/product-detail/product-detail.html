@@ -1,201 +1,218 @@
-<p>product-detail works!</p>
-<div class="product-detail-container">
-  <!-- Top Section: Images and Main Info -->
-  <section class="main-info-section">
-    <div class="product-gallery">
-      <div class="main-image">
-        <!-- Placeholder for main product image -->
-        <div class="image-placeholder main-img">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/5041e1c968d1220ea62151798209fccfb8d95018" alt="Product Main Image">
-        </div>
-      </div>
-      <div class="thumbnail-list">
-        <button class="nav-arrow prev">
-          <svg width="11" height="19" viewBox="0 0 11 19" fill="none"><path d="M10.7878 17.2866L0 8L10.7878 -1.2867" stroke="#808080" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="thumbnails">
-          <div *ngFor="let thumb of productThumbnails" class="thumb-item">
-            <div class="image-placeholder thumb-img"></div>
+<main class="product-detail-page">
+  <div class="product-detail-container" *ngIf="product">
+    
+    <nav class="breadcrumb">
+      <a routerLink="/">Trang chủ</a>
+      <span>/</span>
+      <a routerLink="/products">Sản phẩm</a>
+      <span>/</span>
+      <span>{{ product.name }}</span>
+    </nav>
+
+    <div class="main-info-section">
+      
+      <div class="product-gallery">
+        <div class="main-image">
+          <div class="main-img">
+            <img [src]="product.image" [alt]="product.name" />
           </div>
         </div>
-        <button class="nav-arrow next">
-          <svg width="11" height="19" viewBox="0 0 11 19" fill="none"><path d="M0 1.2866L10.7878 10.5733L0 19.86" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        
+        <div class="thumbnail-list">
+          <button class="nav-arrow disabled" type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 19L8 12L15 5" stroke="#666666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="thumbnails">
+            <div *ngFor="let thumb of productThumbnails" class="thumb-item">
+              <div class="thumb-img">
+                <img [src]="product.image" [alt]="product.name" />
+              </div>
+            </div>
+          </div>
+
+          <button class="nav-arrow" type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 5L16 12L9 19" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="product-info-details">
+        
+        <div class="info-header">
+          <div class="rating-summary">
+            <span class="rating-value">4.8</span>
+            <div class="stars" style="color: var(--star-yellow);">★★★★★</div>
+            <span class="divider">|</span>
+            <span class="review-count">15 Nhận xét</span>
+          </div>
+          
+          <button class="wishlist-btn" type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#E8627B"/>
+            </svg>
+          </button>
+        </div>
+
+        <h1 class="product-name">{{ product.name }}</h1>
+        
+        <div class="price-container">
+          <span class="current-price">{{ product.price | number }}đ</span>
+          <span class="original-price" *ngIf="product.originalPrice">
+            {{ product.originalPrice | number }}đ
+          </span>
+        </div>
+
+        <div class="product-variants">
+          <div class="variant-group">
+            <label>LOẠI DA</label>
+            <div class="options">
+              <button class="option-btn" *ngFor="let type of skinTypes" 
+                      [class.active]="selectedSkinType === type" 
+                      (click)="selectSkinType(type)" type="button">
+                {{ type }}
+              </button>
+            </div>
+          </div>
+
+          <div class="variant-group">
+            <label>DUNG TÍCH</label>
+            <div class="options">
+              <button class="option-btn" *ngFor="let cap of capacities" 
+                      [class.active]="selectedCapacity === cap" 
+                      (click)="selectCapacity(cap)" type="button">
+                {{ cap }}
+              </button>
+            </div>
+          </div>
+
+          <div class="variant-group">
+            <label>SỐ LƯỢNG</label>
+            <div class="quantity-selector">
+              <button (click)="changeQuantity(-1)" type="button">-</button>
+              <input type="text" [value]="quantity" readonly>
+              <button (click)="changeQuantity(1)" type="button">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="add-to-cart" (click)="onAddToCart()" type="button">Thêm vào giỏ hàng</button>
+          <button class="buy-now" (click)="onBuyNow()" type="button">Mua ngay</button>
+        </div>
+
       </div>
     </div>
 
-    <div class="product-info-details">
-      <div class="info-header">
-        <div class="rating-summary">
-          <span class="rating-value">{{ product.rating }}</span>
-          <div class="stars">
-            <svg *ngFor="let star of [1,2,3,4]" width="20" height="20" viewBox="0 0 20 20" fill="#333"><path d="M10 2l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2.2c-.4 0-.7.2-.9.6L7.2 6.7 2.9 7.3c-.8.1-1.1 1.2-.5 1.8l3.1 3-1 4.3c-.1.8.8 1.4 1.5 1l3.9-2 3.9 2c.7.4 1.6-.2 1.5-1l-1-4.3 3.1-3c.6-.6.3-1.7-.5-1.8L12.9 6.7 11 2.8c-.2-.4-.6-.6-1-.6zM10 14.4V3.3l1.9 3.8c.1.2.3.3.5.3l4.2.6-3.1 3c-.2.2-.3.5-.3.8l.7 4.3-3.8-2c-.1-.1-.3-.1-.4-.1z" fill="#333"/></svg>
-          </div>
-          <span class="divider">|</span>
-          <span class="review-count">{{ product.totalReviews }} Đánh giá</span>
-        </div>
-        <button class="wishlist-btn">
-          <svg width="37" height="27" viewBox="0 0 37 27" fill="none"><path d="M23.5293 0.5C27.9755 0.5 31.4999 3.92862 31.5 8.18164C31.5 10.7692 30.7337 12.8618 28.457 15.5029C26.1531 18.1756 22.3342 21.3736 16.2559 26.1523L16 26.3574L15.7441 26.1523C9.66585 21.3736 5.84689 18.1756 3.54297 15.5029C1.26629 12.8618 0.5 10.7692 0.5 8.18164C0.5 3.92862 4.02454 0.5 8.4707 0.5C12.1105 0.5 14.1491 2.45428 15.6318 4.06543L16 4.46582L16.3682 4.06543C17.8509 2.45428 19.8895 0.5 23.5293 0.5Z" stroke="#333"/></svg>
-        </button>
-      </div>
-
-      <h1 class="product-name">{{ product.name }}</h1>
-
-      <div class="price-container">
-        <span class="current-price">{{ product.price | number }}đ</span>
-        <span class="original-price">{{ product.oldPrice | number }}đ</span>
-      </div>
-
-      <div class="product-variants">
-        <div class="variant-group">
-          <label>Loại da</label>
-          <div class="options">
-            <button *ngFor="let type of skinTypes" class="option-btn">{{ type }}</button>
-          </div>
-        </div>
-
-        <div class="variant-group">
-          <label>Dung tích</label>
-          <div class="options">
-            <button *ngFor="let cap of capacities" class="option-btn">{{ cap }}</button>
-          </div>
-        </div>
-
-        <div class="variant-group">
-          <label>Số lượng</label>
-          <div class="quantity-selector">
-            <button (click)="decreaseQty()">-</button>
-            <input type="number" [(ngModel)]="quantity" readonly>
-            <button (click)="increaseQty()">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-buttons">
-        <button class="add-to-cart">Thêm vào giỏ hàng</button>
-        <button class="buy-now">Mua ngay</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Description Section -->
-  <section class="description-section">
     <div class="content-card">
       <h2 class="section-title">Mô tả sản phẩm</h2>
-      <p class="description-text">
-        {{ product.description }}
-      </p>
+      <div class="description-text">
+        <p>{{ product.description }}</p>
+        <p>Sản phẩm sở hữu công thức cải tiến vượt trội giúp nuôi dưỡng tế bào từ sâu bên trong, cung cấp độ ẩm cần thiết suốt 24 giờ đồng hồ và bảo vệ màng sinh học tự nhiên của làn da khỏi các tác nhân ô nhiễm môi trường. Thành phần lành tính, an toàn tuyệt đối và đã được kiểm nghiệm da liễu.</p>
+      </div>
       <div class="view-more-container">
-        <button class="btn-view-more">
-          Xem thêm
-          <svg width="21" height="8" viewBox="0 0 21 8" fill="none"><path d="M20.8371 0L10.4185 7.91052L0 0" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="btn-view-more" type="button">
+          Xem thêm mô tả 
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L6 6L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </button>
       </div>
     </div>
-  </section>
 
-  <!-- Reviews Section -->
-  <section class="reviews-section">
     <div class="content-card">
-      <h2 class="section-title">Đánh giá sản phẩm</h2>
+      <h2 class="section-title">Đánh giá khách hàng</h2>
       
       <div class="reviews-header">
         <div class="average-rating">
-          <span class="big-score">{{ product.rating }}</span>
-          <div class="stars">
-            <svg *ngFor="let s of [1,2,3,4,5]" width="20" height="20" fill="#E8627B"><path d="M10 2l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>
-          </div>
-          <span class="total-count">{{ product.totalReviews }} đánh giá</span>
+          <span class="big-score">4.8</span>
+          <div class="stars" style="color: var(--star-yellow); font-size: 18px;">★★★★★</div>
+          <span class="total-count">(15 đánh giá)</span>
         </div>
-
+        
         <div class="rating-bars">
-          <div *ngFor="let bar of ratingStats" class="bar-item">
-            <span class="star-num">{{ bar.stars }} <svg width="12" height="12" fill="#E8627B"><path d="M6 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5-3.1-1.6-3.1 1.6.6-3.5-2.5-2.5 3.5-.5z"/></svg></span>
-            <div class="bar-bg">
-              <div class="bar-fill" [style.width.%]="bar.percent"></div>
-            </div>
-            <span class="bar-count">{{ bar.count }} đánh giá</span>
-          </div>
+          <div class="bar-item"><span class="star-num">5 sao</span><div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div><span class="bar-count">12 đánh giá</span></div>
+          <div class="bar-item"><span class="star-num">4 sao</span><div class="bar-bg"><div class="bar-fill" style="width: 15%;"></div></div><span class="bar-count">3 đánh giá</span></div>
+          <div class="bar-item"><span class="star-num">3 sao</span><div class="bar-bg"><div class="bar-fill" style="width: 0%;"></div></div><span class="bar-count">0 đánh giá</span></div>
+          <div class="bar-item"><span class="star-num">2 sao</span><div class="bar-bg"><div class="bar-fill" style="width: 0%;"></div></div><span class="bar-count">0 đánh giá</span></div>
+          <div class="bar-item"><span class="star-num">1 sao</span><div class="bar-bg"><div class="bar-fill" style="width: 0%;"></div></div><span class="bar-count">0 đánh giá</span></div>
         </div>
 
         <div class="write-review">
-          <p>Chia sẻ đánh giá của bạn về sản phẩm này</p>
-          <button class="btn-primary">Viết đánh giá</button>
+          <p>Bạn đã trải nghiệm sản phẩm này chưa?</p>
+          <button class="btn-primary" type="button">VIẾT NHẬN XÉT</button>
         </div>
       </div>
 
       <div class="comments-list">
-        <div *ngFor="let review of reviews" class="review-item">
+        <div class="review-item" *ngFor="let comment of [1,2]">
           <div class="review-user-info">
-            <span class="user-name">{{ review.userName }}</span>
-            <div class="user-stars">
-              <svg *ngFor="let s of [1,2,3,4,5]" width="16" height="16" fill="#E8627B"><path d="M8 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5-3.1-1.6-3.1 1.6.6-3.5-2.5-2.5 3.5-.5z"/></svg>
-            </div>
-            <span class="buy-badge">Đã mua hàng online</span>
+            <span class="user-name">Nguyễn Thị Minh Thư</span>
+            <div class="user-stars" style="color: var(--star-yellow);">★★★★★</div>
+            <span class="buy-badge">✓ Đã mua hàng</span>
           </div>
-          <div class="review-meta">
-            {{ review.date }} | Phân loại hàng: {{ review.variant }}
-          </div>
-          <div class="review-comment-placeholders">
-            <div class="comment-line long"></div>
-            <div class="comment-line med"></div>
-            <div class="comment-images">
-              <div class="img-box"></div>
-              <div class="img-box"></div>
-            </div>
+          <div class="review-meta">Phân loại: Da Thường | Dung tích: 100ml • 02/06/2026</div>
+          <p class="actual-comment">Sản phẩm dùng cực kì ưng ý luôn ạ, cấp ẩm tốt, thấm nhanh vào da không hề gây bết rít hay khó chịu chút nào. Giao hàng nhanh đóng gói cẩn thận lắm nha!</p>
+          <div class="comment-images">
+            <div class="img-box"><img [src]="product.image" alt="review"></div>
+            <div class="img-box"><img [src]="product.image" alt="review"></div>
           </div>
         </div>
       </div>
 
       <div class="pagination">
-        <button class="page-arrow disabled">
-          <svg width="9" height="19" viewBox="0 0 9 19" fill="none"><path d="M8.7 18.5L0 9.2L8.7 0" stroke="#808080" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <button class="page-arrow disabled" type="button">‹</button>
         <span class="page-num active">1</span>
         <span class="page-num">2</span>
-        <span class="page-num">3</span>
-        <span class="page-num">4</span>
-        <span class="page-num">5</span>
-        <button class="page-arrow">
-          <svg width="9" height="19" viewBox="0 0 9 19" fill="none"><path d="M0.3 0L9 9.3L0.3 18.6" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <button class="page-arrow" type="button">›</button>
       </div>
     </div>
-  </section>
 
-  <!-- Related Products Section -->
-  <section class="related-products-section">
-    <div class="section-header">
-      <h2 class="section-title">Sản phẩm liên quan</h2>
-      <button class="btn-outline">Xem thêm</button>
-    </div>
+    <section class="related-products-section" *ngIf="relatedProducts && relatedProducts.length > 0">
+      <div class="section-header">
+        <h2 class="section-title">SẢN PHẨM LIÊN QUAN</h2>
+        <button class="btn-outline" routerLink="/products" type="button">XEM THÊM</button>
+      </div>
 
-    <div class="products-grid">
-      <div *ngFor="let item of relatedProducts" class="product-card" [routerLink]="['/product-detail']">
-        <div class="card-image">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/43c07235cab6cf8f3f1a72ba92623a9782f7dc6e" alt="Related Product">
-          <span class="discount-badge">-51%</span>
-          <button class="wishlist-small">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="#666"><path d="M8 1.3C6.4-0.4 3.7-0.4 2.1 1.3 -0.7 4.1 2.3 7.8 8 13c5.7-5.2 8.7-8.9 5.9-11.7C12.3-0.4 9.6-0.4 8 1.3z"/></svg>
-          </button>
-        </div>
-        <div class="card-body">
-          <div class="prices">
-            <span class="price">22,000đ</span>
-            <span class="old-price">54,000đ</span>
+      <div class="products-grid">
+        <div class="product-card" *ngFor="let item of relatedProducts" [routerLink]="['/product-detail', item.id]">
+          <div class="card-image">
+            <img [src]="item.image" [alt]="item.name" />
+            <span class="discount-badge" *ngIf="item.discountPercent">-{{ item.discountPercent }}%</span>
+            <button class="wishlist-small" type="button">
+              <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 12.15l-0.95-.87C2.68 8.44.5 6.42.5 4a3.17 3.17 0 013.25-3.25c1.13 0 2.21.53 2.91 1.36A3.87 3.87 0 019.57.75 3.17 3.17 0 0112.82 4c0 2.42-2.18 4.44-5.55 7.29L7 12.15z" fill="#E8627B"/>
+              </svg>
+            </button>
           </div>
-          <h3 class="name">TÊN SẢN PHẨM</h3>
-          <p class="desc">Mô tả sản phẩm</p>
-          <div class="meta">
-            <div class="rating">
-              <svg width="16" height="16" fill="#FFCC00"><path d="M8 0l2 4.5 5 .7-3.6 3.5.8 5.3-4.2-3-4.2 3 .8-5.3-3.6-3.5 5-.7z"/></svg>
-              <span>5.0</span>
+
+          <div class="card-body">
+            <div class="prices">
+              <span class="price">{{ item.price | number }}đ</span>
+              <span class="old-price" *ngIf="item.originalPrice">{{ item.originalPrice | number }}đ</span>
             </div>
-            <span class="sold-count">Đã bán 12340</span>
+            <h3 class="name">{{ item.name }}</h3>
+            <p class="desc">{{ item.description || 'Sản phẩm nuôi dưỡng phục hồi làn da chuyên sâu sáng mịn.' }}</p>
+            <div class="meta">
+              <span class="rating" style="color: var(--star-yellow);">★ 4.8</span>
+              <span class="sold-count">Đã bán 1.2k</span>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+
+  </div>
+
+  <div class="product-not-found" *ngIf="!product">
+    <div class="product-detail-container" style="text-align: center; padding: 120px 0;">
+      <h2>Đang tải thông tin sản phẩm...</h2>
+      <p>Vui lòng đợi trong giây lát hoặc bấm quay lại trang danh sách sản phẩm.</p>
+      <button class="btn-outline" routerLink="/products" style="margin-top: 20px;" type="button">Quay lại danh sách</button>
     </div>
-  </section>
-</div>
+  </div>
+</main>
