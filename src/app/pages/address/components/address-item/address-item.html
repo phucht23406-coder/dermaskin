@@ -1,0 +1,37 @@
+<article class="address-card">
+  <div class="address-top">
+    <p class="address-name">{{ address.name }} - {{ maskedPhone }}</p>
+    <div class="address-top-actions">
+      <button
+        *ngIf="!address.isDefault"
+        type="button"
+        class="btn-delete"
+        (click)="delete.emit(address)"
+        [attr.aria-label]="'Xóa địa chỉ của ' + address.name"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e7627b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18" />
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="btn-edit"
+        (click)="edit.emit(address)"
+        [attr.aria-label]="'Sửa địa chỉ của ' + address.name"
+      >
+        Sửa
+      </button>
+    </div>
+  </div>
+
+  <p class="address-line">{{ address.addressLine }}</p>
+
+  <div class="address-tags">
+    <span class="tag tag-type">{{ typeLabel }}</span>
+    <span class="tag tag-default" *ngIf="address.isDefault">Địa chỉ mặc định</span>
+  </div>
+</article>

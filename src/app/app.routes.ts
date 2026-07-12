@@ -19,6 +19,7 @@ import { Orders } from './pages/orders/orders';
 import { Wishlist } from './pages/wishlist/wishlist';
 import { Voucher } from './pages/voucher/voucher';
 import { ServicesBooking } from './pages/services-booking/services-booking';
+import { AddressList } from './pages/address/address-list/address-list';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -41,6 +42,7 @@ export const routes: Routes = [
   { path: 'wishlist', component: Wishlist },
   { path: 'voucher', component: Voucher },
   { path: 'services-booking', component: ServicesBooking },
+  { path: 'address', component: AddressList },
   { path: '**', redirectTo: '' }
 ];
 
