@@ -1,133 +1,103 @@
-<app-header></app-header>
+<main class="checkout-page">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="#">Trang chủ</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="#">Giỏ hàng</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current" aria-current="page">Thanh toán</span>
+  </nav>
 
-<main class="payment-flow-container">
-
-  <ng-container *ngIf="!isSuccess">
-    
-    <section class="checkout-form-section">
-      <div class="section-header">
-        <h2 class="section-title">Thanh toán</h2>
-      </div>
-
-      <div class="info-block" style="margin-top: 20px;">
-        <div class="info-row">
-          <p class="info-text">KTX khu B, ĐHQG, Linh Trung, Thủ Đức, Hồ Chí Minh</p>
-          <button class="change-btn" type="button">Thay đổi</button>
+  <div class="checkout-columns">
+    <div class="checkout-left">
+      <section class="checkout-card" aria-labelledby="address-title">
+        <h2 class="card-title visually-hidden" id="address-title">Địa chỉ nhận hàng</h2>
+        <div class="receiver-row">
+          <span class="tag-type">{{ receiverAddressType }}</span>
+          <p class="receiver-name">{{ receiverName }} - {{ receiverPhoneMasked }}</p>
+          <button type="button" class="btn-link">Thay đổi</button>
         </div>
-        <div class="info-row">
-          <p class="info-text">0337085331</p>
-          <button class="change-btn" type="button">Thay đổi</button>
+        <p class="receiver-address">{{ receiverAddress }}</p>
+      </section>
+
+      <section class="checkout-card" aria-labelledby="payment-title">
+        <div class="card-header">
+          <h2 class="card-title" id="payment-title">Hình thức thanh toán</h2>
         </div>
-      </div>
-
-      <div class="payment-methods-block">
-        <h3 class="block-title">Thanh toán với:</h3>
-        <div class="method-options">
-          
-          <div class="method-option" [class.active]="selectedMethod === 'bank'" (click)="selectMethod('bank')">
-            <div class="radio-circle">
-              <div class="radio-inner"></div>
-            </div>
-            <span>Tài khoản ngân hàng</span>
-          </div>
-          
-          <div class="method-option" [class.active]="selectedMethod === 'direct'" (click)="selectMethod('direct')">
-            <div class="radio-circle">
-              <div class="radio-inner"></div>
-            </div>
-            <span>Trực tiếp</span>
-          </div>
-
+        <div class="payment-row">
+          <p class="payment-method">{{ paymentMethod }}</p>
+          <button type="button" class="btn-link">Thay đổi</button>
         </div>
-      </div>
+      </section>
 
-      <div class="form-inputs-block" *ngIf="selectedMethod === 'bank' && !isOtpStep">
-        <div class="input-group">
-          <span class="input-label">Ngân hàng</span>
-          <input type="text" class="form-input" placeholder="Nhập tên ngân hàng">
+      <section class="checkout-card">
+        <div class="voucher-row">
+          <h2 class="card-title">Mã giảm giá</h2>
+          <button type="button" class="btn-link" (click)="applyVoucher()">Áp dụng thêm</button>
         </div>
-        <div class="input-group">
-          <span class="input-label">Số tài khoản</span>
-          <input type="text" class="form-input" placeholder="Nhập số tài khoản ngân hàng">
+      </section>
+    </div>
+
+    <div class="checkout-right">
+      <button type="button" class="btn-place-order" (click)="placeOrder()">Đặt hàng</button>
+
+      <section class="checkout-card order-card">
+        <div class="card-header">
+          <h2 class="card-title">Đơn hàng</h2>
+          <button type="button" class="btn-link">Thay đổi</button>
         </div>
-      </div>
 
-      <div class="otp-verification-block" *ngIf="selectedMethod === 'bank' && isOtpStep">
-        <p class="otp-hint-text">Nhập mã code 4 kí tự được gửi đến bạn để xác nhận thanh toán</p>
-        <div class="otp-inputs-wrapper">
-          <input type="text" maxlength="1" class="otp-field">
-          <input type="text" maxlength="1" class="otp-field">
-          <input type="text" maxlength="1" class="otp-field">
-          <input type="text" maxlength="1" class="otp-field">
+        <div class="order-row">
+          <span>Tạm tính</span>
+          <span>{{ subtotal | number: '1.0-0' }}đ</span>
         </div>
-      </div>
-
-      <div class="cta-block">
-        <button type="button" class="submit-btn" (click)="onSubmit()">
-          {{ (selectedMethod === 'bank' && isOtpStep) ? 'Xác nhận thanh toán' : 'Mua ngay' }}
-        </button>
-        <p class="privacy-notice">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục đích khác được mô tả trong chính sách bảo mật của chúng tôi.</p>
-      </div>
-    </section>
-
-    <aside class="order-summary-section">
-      <div class="section-header">
-        <h2 class="section-title">Thông tin đơn hàng</h2>
-      </div>
-
-      <div class="voucher-block">
-        <input type="text" class="voucher-input" placeholder="Mã voucher">
-        <button class="voucher-btn" type="button">Áp dụng</button>
-      </div>
-
-      <div class="cart-container">
-        <h3 class="block-title">Giỏ hàng</h3>
-        <div class="items-list">
-          <div class="cart-item">
-            <img class="item-img" src="https://api.builder.io/api/v1/image/assets/TEMP/97f1d5e8cc72e925c37bc4eb35f088811ea9a918?width=140" alt="Serum">
-            <div class="item-details">
-              <div class="item-main-row">
-                <span class="item-name">Serum trị mụn</span>
-                <span class="item-price">400.000 đ</span>
-              </div>
-              <div class="item-sub-row">
-                <span class="item-spec">50ml</span>
-                <span class="item-qty">SL: 1</span>
-              </div>
-            </div>
-          </div>
+        <div class="order-row">
+          <span>Voucher</span>
+          <span>{{ voucherDiscount | number: '1.0-0' }}đ</span>
         </div>
-      </div>
-
-      <div class="pricing-breakdown">
-        <h3 class="block-title">Chi tiết</h3>
-        <div class="pricing-row">
-          <span class="pricing-label">Tổng cộng</span><span class="pricing-val">400.000đ</span>
+        <div class="order-row">
+          <span>Phí ship</span>
+          <span>{{ shippingFee | number: '1.0-0' }}đ</span>
         </div>
-        <div class="pricing-row">
-          <span class="pricing-label">Voucher</span><span class="pricing-val">10.000đ</span>
+
+        <hr class="order-divider" />
+
+        <div class="order-total-row">
+          <span class="order-total-label">Tổng cộng</span>
+          <span class="order-total-amount">{{ total | number: '1.0-0' }} đ</span>
         </div>
-        <div class="pricing-row">
-          <span class="pricing-label">Phí ship</span><span class="pricing-val">11.000đ</span>
-        </div>
-      </div>
-
-      <div class="grand-total-block">
-        <span class="total-label">Tổng cộng</span>
-        <span class="total-amount">1.000.000đ</span>
-      </div>
-    </aside>
-
-  </ng-container>
-
-  <div class="success-screen-fixed" *ngIf="isSuccess">
-    <div class="success-card-center">
-      <h1 class="success-title">Cảm ơn bạn đã mua hàng</h1>
-      <p class="success-subtitle">Đơn hàng #123RGR231567Y đã được xác nhận</p>
-      <button type="button" class="submit-btn continue-btn" (click)="resetPage()">Tiếp tục mua hàng</button>
+      </section>
     </div>
   </div>
 
+  <section class="checkout-card note-card">
+    <textarea
+      class="note-input"
+      rows="1"
+      name="note"
+      placeholder="Ghi chú cho shop nếu bạn có yêu cầu gì thêm"
+      [(ngModel)]="note"
+    ></textarea>
+  </section>
+
+  <section class="checkout-card package-card">
+    <h2 class="card-title">Thông tin kiện hàng</h2>
+    <div class="package-item" *ngFor="let item of orderItems; let last = last" [class.no-border]="last">
+      <img class="package-img" [src]="item.image" [alt]="item.name" />
+      <div class="package-info">
+        <p class="package-brand">{{ item.brand }}</p>
+        <p class="package-name">{{ item.name }}</p>
+        <p class="package-spec">{{ item.spec }}</p>
+      </div>
+      <div class="package-price">{{ item.quantity }} x {{ item.price | number: '1.0-0' }} đ</div>
+    </div>
+  </section>
 </main>
 
-<app-footer></app-footer>
+<div class="toast" *ngIf="toastMessage" role="status" aria-live="polite">
+  <span class="toast-icon" aria-hidden="true">
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+      <path d="M1 6L5.5 10.5L15 1" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </span>
+  <span class="toast-text">{{ toastMessage }}</span>
+</div>

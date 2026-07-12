@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { AddressItem } from '../components/address-item/address-item';
 import { AddressForm } from '../components/address-form/address-form';
 import { Address } from '../address.model';
+import { AccountSidebar } from '../../../shared/account-sidebar/account-sidebar';
 
 @Component({
   selector: 'app-address-list',
-  imports: [CommonModule, AddressItem, AddressForm],
+  imports: [CommonModule, AddressItem, AddressForm, AccountSidebar],
   templateUrl: './address-list.html',
   styleUrl: './address-list.css',
 })

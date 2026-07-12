@@ -1,0 +1,18 @@
+<aside class="sidebar">
+  <div class="user-info">
+    <img src="images/avatars/taylor.png" alt="avatar" class="avatar" />
+    <div>
+      <p class="greeting">Chào {{ userName }}</p>
+      <a href="#" class="edit-link">Chỉnh sửa tài khoản</a>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item" [class.active]="active === 'profile'">Thông tin tài khoản</a>
+    <a href="#" class="nav-item" [class.active]="active === 'orders'">Đơn hàng của tôi</a>
+    <a href="#" class="nav-item" [class.active]="active === 'wishlist'">Sản phẩm yêu thích</a>
+    <a href="#" class="nav-item" [class.active]="active === 'voucher'">Voucher của tôi</a>
+    <a href="#" class="nav-item" [class.active]="active === 'services'">Lịch hẹn dịch vụ</a>
+    <a href="#" class="nav-item" [class.active]="active === 'address'">Sổ địa chỉ nhận hàng</a>
+    <a href="#" class="nav-item" [class.active]="active === 'logout'">Đăng xuất</a>
+  </nav>
+</aside>

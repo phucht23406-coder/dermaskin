@@ -1,45 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Header } from '../../shared/header/header';
-import { Footer } from '../../shared/footer/footer';
+import { ProductService } from '../../shared/services/product.service';
+
+interface OrderItem {
+  id: number;
+  brand: string;
+  name: string;
+  spec: string;
+  quantity: number;
+  price: number;
+  image: string;
+}
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule, Header, Footer], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './checkout.html',
-  styleUrl: './checkout.css'
+  styleUrl: './checkout.css',
 })
-export class Checkout {
-  selectedMethod: string = 'bank'; 
-  isOtpStep: boolean = false;      
-  isSuccess: boolean = false; // Chỉ dùng biến này để điều khiển màn hình cảm ơn
+export class Checkout implements OnDestroy {
+  private productService = inject(ProductService);
+  private products = this.productService.getAllProducts();
 
-  selectMethod(method: string) {
-    if (!this.isOtpStep) {
-      this.selectedMethod = method;
-    }
+  receiverAddressType = 'Công ty';
+  receiverName = 'Nguyễn Quốc Khải';
+  receiverPhoneMasked = '*******457';
+  receiverAddress = '516 Cách Mạng Tháng Tám, Phường 11, Quận 3, Thành phố Hồ Chí Minh';
+
+  paymentMethod = 'Thanh toán khi nhận hàng (COD)';
+
+  voucherCode = '';
+  voucherDiscount = 0;
+
+  note = '';
+
+  orderItems: OrderItem[] = [
+    {
+      id: 1,
+      brand: 'Klairs',
+      name: 'Serum Hoa Hồng Klairs Không Mùi Cho Da Nhạy Cảm 50ml',
+      spec: '50ml',
+      quantity: 2,
+      price: 100000,
+      image: this.products[0]?.image ?? '',
+    },
+    {
+      id: 2,
+      brand: 'Bioderma',
+      name: 'Bộ làm sạch ba bước cho da nhạy cảm Bioderma',
+      spec: 'Bộ 3 sản phẩm',
+      quantity: 1,
+      price: 400000,
+      image: this.products[2]?.image ?? '',
+    },
+  ];
+
+  shippingFee = 0;
+
+  toastMessage: string | null = null;
+  private toastTimeoutId?: ReturnType<typeof setTimeout>;
+
+  ngOnDestroy(): void {
+    clearTimeout(this.toastTimeoutId);
   }
 
-  onSubmit() {
-    // 1. Nếu chọn Tài khoản ngân hàng
-    if (this.selectedMethod === 'bank') {
-      if (!this.isOtpStep) {
-        this.isOtpStep = true; // Bấm lần 1: Sang thẳng form nhập OTP
-      } else {
-        this.isSuccess = true; // Bấm lần 2: Sang thẳng màn hình cảm ơn
-      }
-    } 
-    // 2. Nếu chọn Trực tiếp
-    else if (this.selectedMethod === 'direct') {
-      this.isSuccess = true; // Bấm "Mua ngay" -> Sang thẳng màn hình cảm ơn luôn
-    }
+  get subtotal(): number {
+    return this.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-  resetPage() {
-    this.isSuccess = false;
-    this.isOtpStep = false;
-    this.selectedMethod = 'bank';
+  get total(): number {
+    return this.subtotal - this.voucherDiscount + this.shippingFee;
+  }
+
+  applyVoucher(): void {
+    this.voucherDiscount = this.voucherDiscount > 0 ? 0 : 10000;
+    this.showToast(this.voucherDiscount > 0 ? 'Đã áp dụng mã giảm giá!' : 'Đã bỏ mã giảm giá!');
+  }
+
+  placeOrder(): void {
+    this.showToast('Đặt hàng thành công!');
+  }
+
+  private showToast(message: string): void {
+    this.toastMessage = message;
+    clearTimeout(this.toastTimeoutId);
+    this.toastTimeoutId = setTimeout(() => {
+      this.toastMessage = null;
+    }, 2500);
   }
 }
